@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+<title>تقويم فعاليات غرفة جدة</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
+<style>
+   
+  :root{
+    --blue:#1c6792; --blue-dark:#114a6b; --mid:#0e7da4; --teal:#2ec0c9; --teal-soft:#e6f7f8;
+    --orange:#ffab22;
+    --bg:#f1f5f7; --card:#fff; --text:#16303d; --muted:#6b7f89; --line:#e2eaee;
+    --r:18px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{font-family:'Tajawal',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;font-size:15px}
+  button{font-family:inherit}
+  .wrap{max-width:980px;margin:0 auto;width:100%;padding:0 16px}
+
+   
+  .topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;padding-top:env(safe-area-inset-top)}
+  .topbar .wrap{display:flex;align-items:center;gap:12px;height:66px}
+  .topbar img{height:46px;display:block}
+  .topbar .sep{width:1px;height:30px;background:var(--line)}
+  .topbar b{font-size:16px;color:var(--blue);font-weight:800;line-height:1.2}
+  .topbar small{display:block;font-size:12px;color:var(--muted);font-weight:500}
+
+   
+  .hero{background:linear-gradient(140deg,var(--blue-dark),var(--blue) 55%,var(--mid));color:#fff;position:relative;overflow:hidden;padding:22px 0 70px}
+  .hero::before,.hero::after{content:"";position:absolute;background:var(--teal);transform:rotate(45deg);border-radius:14px;opacity:.9}
+  .hero::before{width:90px;height:90px;left:-26px;bottom:26px;opacity:.25}
+  .hero::after{width:26px;height:26px;left:70px;top:22px;opacity:.7;border-radius:6px}
+  .eyebrow{font-size:13px;color:#bfe9ee;font-weight:500;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .eyebrow::before{content:"";width:8px;height:8px;background:var(--teal);transform:rotate(45deg);border-radius:2px}
+  .feat{display:flex;gap:14px;align-items:center;cursor:pointer;position:relative;z-index:1}
+  .feat .ph{width:92px;height:92px;flex:none;border-radius:16px;background:rgba(255,255,255,.12) center/cover;border:2px solid rgba(255,255,255,.25)}
+  .feat h2{font-size:20px;font-weight:800;line-height:1.35}
+  .feat p{font-size:13.5px;opacity:.85;margin-top:4px}
+  .pill{display:inline-block;margin-top:8px;background:var(--teal);color:#06343b;font-weight:700;font-size:12.5px;padding:4px 10px;border-radius:999px}
+  .hero .none{font-size:16px;opacity:.9;position:relative;z-index:1}
+
+  main{flex:1;margin-top:-50px;position:relative;z-index:2;padding-bottom:24px}
+
+   
+  .cal{background:var(--card);border-radius:var(--r);box-shadow:0 10px 30px rgba(17,74,107,.10);overflow:hidden}
+  .nav{display:flex;align-items:center;gap:8px;padding:12px}
+  .nav .m{flex:1;text-align:center}
+  .nav .m b{display:block;font-size:18px;font-weight:800}
+  .nav .m span{font-size:12px;color:var(--muted);white-space:nowrap}
+  .nav .m{min-width:0}
+  .ib{width:42px;height:42px;border-radius:12px;border:0;background:var(--teal-soft);color:var(--blue);display:grid;place-items:center;cursor:pointer}
+  .ib svg{width:20px;height:20px}
+  .tb{height:42px;border-radius:12px;border:0;background:var(--teal-soft);color:var(--blue);font-weight:700;font-size:13.5px;padding:0 12px;cursor:pointer}
+  .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));padding:0 8px 10px}
+  .dow{text-align:center;font-size:12px;color:var(--muted);padding:6px 0 8px;font-weight:500}
+  .day{min-width:0;height:60px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:4px;cursor:pointer;border-radius:12px;position:relative;user-select:none}
+  .day .n{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;font-weight:700;font-size:15px}
+  .day .top{text-align:center}
+  .day .h{font-size:9.5px;color:var(--muted);display:block;line-height:1.2}
+  .day.out{opacity:.3}
+  .day.today .n{box-shadow:inset 0 0 0 2px var(--teal);color:var(--blue)}
+  .day.sel .n{background:var(--blue);color:#fff;box-shadow:none}
+  .dots{position:absolute;bottom:2px;display:flex;gap:3px}
+  .dots i{width:6px;height:6px;border-radius:50%;background:var(--teal)}
+  .day.sel .dots i{background:var(--orange)}
+  .chips{display:none}
+
+   
+  .agenda{border-top:1px solid var(--line);padding:14px 14px 16px}
+  .agenda h3{font-size:14px;color:var(--muted);font-weight:500;margin-bottom:10px}
+  .agenda .empty{font-size:14px;color:var(--muted)}
+
+  .sec{margin-top:22px}
+  .sec h2{font-size:17px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .sec h2::before{content:"";width:10px;height:10px;background:var(--teal);transform:rotate(45deg);border-radius:2px}
+  .list{display:grid;gap:10px}
+  .card{display:flex;gap:12px;background:var(--card);border-radius:16px;padding:10px;align-items:center;cursor:pointer;box-shadow:0 2px 10px rgba(17,74,107,.06);border:1px solid transparent;transition:border-color .15s,transform .1s}
+  .card:active{transform:scale(.985)}
+  .card .ph{width:76px;height:76px;flex:none;border-radius:12px;background:var(--teal-soft) center/cover;display:grid;place-items:center;color:var(--blue)}
+  .card .tx{min-width:0;flex:1}
+  .card b{display:block;font-size:15px;line-height:1.45}
+  .card small{color:var(--muted);font-size:12.5px;display:block;margin-top:2px}
+  .card .badge{flex:none;text-align:center;background:var(--teal-soft);color:var(--blue);border-radius:12px;padding:6px 8px;min-width:48px}
+  .card .badge b{font-size:18px;line-height:1}
+  .card .badge span{font-size:11px}
+  .note{font-size:11px;color:#c07a00}
+  .empty{color:var(--muted);font-size:14px}
+
+  footer{margin-top:auto;background:#fff;border-top:1px solid var(--line);padding:16px 16px calc(16px + env(safe-area-inset-bottom))}
+  footer .wrap{display:flex;align-items:center;justify-content:center;gap:10px}
+  footer img{width:40px;height:40px;filter:drop-shadow(0 3px 8px rgba(255,171,34,.45))}
+  footer span{font-size:12.5px;color:var(--muted);line-height:1.3}
+  footer b{display:block;color:var(--text);font-size:14px}
+
+   
+  .modal{position:fixed;inset:0;background:rgba(9,35,50,.6);display:flex;align-items:flex-end;justify-content:center;z-index:20;opacity:0;pointer-events:none;transition:opacity .2s}
+  .modal.open{opacity:1;pointer-events:auto}
+  .sheet{background:#fff;width:100%;max-width:640px;max-height:92vh;border-radius:22px 22px 0 0;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .25s ease;padding-bottom:env(safe-area-inset-bottom)}
+  .modal.open .sheet{transform:none}
+  .grab{width:44px;height:5px;border-radius:3px;background:#d5dee3;margin:8px auto 0}
+  .sh{display:flex;align-items:center;gap:10px;padding:10px 16px 12px;border-bottom:1px solid var(--line)}
+  .sh b{flex:1;font-size:16px}
+  .x{width:38px;height:38px;border-radius:50%;border:0;background:var(--teal-soft);color:var(--blue);font-size:17px;cursor:pointer}
+  .sb{overflow:auto;-webkit-overflow-scrolling:touch}
+  .item{padding:16px}
+  .item+.item{border-top:1px solid var(--line)}
+  .item h3{font-size:18px;font-weight:800;line-height:1.4}
+  .item .d{color:var(--muted);font-size:13px;margin:4px 0 12px}
+  .item img{width:100%;border-radius:14px;display:block}
+  .item iframe{width:100%;height:65vh;border:1px solid var(--line);border-radius:14px}
+  .acts{display:flex;gap:8px;margin-top:12px}
+  .btn{flex:1;height:46px;border-radius:12px;border:0;font-weight:700;font-size:14.5px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+  .btn.wa{background:#25d366;color:#fff}
+  .btn.sec2{background:var(--teal-soft);color:var(--blue)}
+  .btn svg{width:18px;height:18px}
+  .loading{height:220px;border-radius:14px;background:linear-gradient(90deg,#eef3f5,#e2eaee,#eef3f5);background-size:200% 100%;animation:sh 1.2s infinite;display:grid;place-items:center;color:var(--muted);font-size:13px}
+  @keyframes sh{to{background-position:-200% 0}}
+  .pic img{width:100%;border-radius:12px;display:block}
+  .pic img.ph-img{filter:blur(3px);opacity:.8}
+  .dgrid{display:grid;gap:12px;padding:12px}
+  .dgrid .item{border:1px solid var(--line);border-radius:16px;padding:12px}
+  .dgrid .item+.item{border-top:1px solid var(--line)}
+  .dgrid .item h3{font-size:15.5px}
+  .dgrid .pic{cursor:zoom-in}
+
+   
+  @media(min-width:760px){
+    .topbar img{height:52px}
+    .hero{padding:30px 0 80px}
+    .feat .ph{width:120px;height:120px}
+    .feat h2{font-size:24px}
+    .day{height:96px;align-items:stretch;padding:6px;border-radius:0;border-top:1px solid var(--line)}
+    .day .n{width:28px;height:28px;font-size:14px}
+    .day .top{display:flex;align-items:center;gap:4px}
+    .dots{display:none}
+    .chips{display:block;margin-top:4px}
+    .chips div{font-size:11px;background:var(--blue);color:#fff;border-radius:6px;padding:3px 6px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .chips div.more{background:var(--teal);color:#06343b}
+    .day.sel{background:var(--teal-soft)}
+    .day.sel .n{background:var(--blue)}
+    .list{grid-template-columns:1fr 1fr}
+    .modal{align-items:center;padding:24px}
+    .sheet{border-radius:22px;transform:translateY(20px) scale(.98)}
+    .grab{display:none}
+    .sheet.wide{max-width:1100px}
+    .dgrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .dgrid .pic{height:440px;background:#f6f8f9;border-radius:12px;overflow:hidden}
+    .dgrid .pic img{height:100%;object-fit:contain}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMIAAAB4CAMAAACXbt0QAAAAwFBMVEUtwMghqbItwMgcZHodcaMEGH4rxcssvsgtvshVqqobrOcecJ4A/wAOgKYA/39xcXFVVaoNgKdVqv9///8/P78LeZ8y0dt/f/9VqlX//wD///8AAAAbZ5IuwcoAf38bZpEaZpEA//8aZpEaZpEaZpEaZpEXZ5IAAP8NfKMAVakKe6oNe6MNe6MMe6INfKMTd5YNfKMNfKMOgqooaJQrvMYZXJEtvsgtwMkAqqotvsgAVVUtvcgvxsoAf/8tusctvsghcAF/AAAAQHRSTlOfDVsGFQIlj24DBf8BowICA94DAgRD/wIDAQEA&#43;/0C0C4Br5BwTxMB8gMOTzFujw7RrP4KLw75zgPMA0oQAhSwGX&#43;/rAAAEWRJREFUeNrtXAl74roONVuXuXOXty&#43;mjp09YUlooCyl5f//qyfJcQghCdChdO73PU&#43;nQEgcHUs6kmWnjP9IC4QQ&#43;dvI5770pXRd6bku/niedOCNh29834&#43;FCMx1qrjsCo19/FKVi7RKpPQcx3Zsyxpaw6Fl6xfLtvE3NtuBhqiklFmWX38tGOyjo0&#43;vvvQ8F0QfHrTKR3PItgGUbbsO6sWPi76C4OYQgkho8V0a5uHZzbJyrSAY1InvJ3E&#43;JMHtIAQkfk&#43;6jnWW8Fb51SqAgE7IvlwwLd/vmc5vACHCm6DhW2fJXR7&#43;crNJHQQEXYR8ZPFhEBdAIPtPXNs6YSs1tqW9O1cCufmQEAyJBdDRAUbi&#43;&#43;oztaAitB&#43;P7n562E&#43;4hHYHbMAFiMJx4QeYQfpJ/5MgkALAfYfXa2hI5Awguas5F3/AppLrQwgicoAryW/ntJRrDyMG&#43;rSk2ALvpd/z364MQSvAutroFzrAIKEJFmWH0cfgjmg8P7/tVSCgBhaec00DKpMsIIEAAc2x0akhdEMmAnlKxuP&#43;dSAoGIrMs4bDa/tASRmoC0dbE3qFJ3u8F0XX0gJ05F/VhfeBzXgCUq1OrihcS8qiFtzPruILAgFcVwN1wQI1gFRtEyGRa2c9nTv9IARIWqJPAmAVyQaqwKbIAMyEEChSQ5iTkfpRLaATePanKoBeyA8wKlCEhokGeAPyEhKTJ38EAgCQznD4yRBsS2ffmGPYOqphGg44&#43;khL8HHxUQhCfTKAA1/IEwzXzIh8qRuI7ycfhBDxgWcNb9KIYDFhAgCSpqi59L1eJDEFF8kHIKiAS/sGslPaChakU1f0BXQDnWjAVDsJQHzB&#43;&#43;coogLhjQfujVSg3Rn0kOfb4NWUq/oR2ZKfD&#43;mlEAa3UEHFlGzXcvLqgFzILFkI7vNscX50K0MIFPduKbxmVZsmC7bj&#43;cSjPTM5730sLrjDGzeLCFVPP4FIkY&#43;CS2egrBwNnBvLDwCsUr4t&#43;34n8//OpfzgfCH&#43;dB0cVwUcR6d5tgkMnuzzle9/dMrjfbrRgNBuPuS2Ti70ey28Tz&#43;SX4jAQAggK/10q0faIQbFmUEeAxyMA8BFLiZFSZYBGyWLD0EQn6gDqtxJLLAsksyl4hcIzymZ6/v8N5ipZVRRln104ozzG0OwWwOJ7R4ma3E2KCp3C0jmMgFRAE/omxqrSKKPQpAfkB4nKM32Z7metmoRiUCVCjpBLWWqj9ZVmYnjvnWhZXuyZVJhwddZLr7in9tYodfzg4LtSgqdogEAyE/DvxEBv0FjRYrtnmk8ejaFs6J6ALn80W3kL0E4yxlgeGn4I6pt1JOP/BGz/rHivDppSbauskVCvPGoblZkuXJD489v2ti&#43;ZNFKqxYNL5WHsTpj153h61nrrds&#43;wVBxM8NDBlYMr6gtL2kVbfgXNFaaM3uNAPbDC0Z&#43;bEOW7UHE2gScfy0EXh8aNANFgcGZuDUQoy&#43;xoLr5gldjHxX7PvICy8FJiuBf11g5wvecKgDBg0FZvGosgCRi0QIgMMXNWxlSJbxZbu9AuoCLqhFZXmsZXZnfwe0glC0JOTI6&#43;Hbh1BBtS16pKHEOuPQ1VbVgbXEkpS6AAPcohtmWFQMQR26Ap7R1r7i0XIAoh7bfLpoq1UJrJv&#43;i3j4bIPjGQPYkZHRQcQPb7bd7sSCGc&#43;m35aO2IHcNymKvlHn7/m5gCB1AVXGW73gHV/Uct4KBVW7rGRsSlSqftCo8dJKGMsLskvXZcK5r9yrVZ57Hynd2R0L3QdwNV05Za3C5t1cTJdROixbg1L41dPpHYbZaI7OQh9p9VOV5o0NAHBhN0EgBWnUe2O5hS7K9fd/t8M13ReKiMQMGpTshy/bMhfkQOwcrKKxqZZ53HKaCCgKMFicjgRJ4kbVYYOk38e1fwJoGBb6HJ2jLOV/Bv&#43;7LHI7kjujRrewkL0ro&#43;xWd9vUKUa88fqyRC8ubX9yqH58XikEaidHQkr71iyUL9hJ8u3x6QRBd/o3PX7qEIBfX&#43;WVIzoNCqozuLM2A5dbgHQwgq1ujqpSKD9NwG&#43;YM5yEAtUscAJjmEwIYVK2GR1LCywugeOV8x6g/1dfiktPthXSREtSBebqHJnBy9V/xgVOl0jPTiSijUwVfWGjdPS6dnrEjdr9GFE9Pd6/rreFXEhcprCQ0d10&#43;iMqxq2Ck4DwIEJ6cChMNLoi1wI8CqQlkB5K23b1f8m0XFfG0Xr/m5IEGCycAfbtvR0EhKH0OLtrAIAYHAQ2nNWdndAMPk1wVRQ4QEh/g1HZvAqtHzl9JDbv/iOPAFZQ&#43;SNcF292TWU&#43;BtUdRoBZnGpJ7EM6ysxFoDkCzcwEBcBxSulMaQThEGLrASYdxV3x77RhLCiIdV/ziyqIHtKjTezCCcu5qIZeea0SRKSc4iEDhZT0LuaWUU60Qw7pTTYIE7zJVBO58CO19TdDL17WMz7dDOOAi&#43;xI3KNWlgCDfFKYKFOLKaoSQAEoQ1TVjDNbicCDwykEljRv6JyFU4oFzbjQoB6Ui44KUkSaFTmGKuNNY/dbpVC/9nT90uToeQyRlcPx9rchYZRuEMgILdcAvgIC3KpjAgQELlJ1btSqYJopqNL9lhmUDvgD8Uu&#43;HwqT3oOhoAh474Y8lMo1qNwo0h2bI2Yrc0MIB8MxbGr3MX2CUUBtRue3DPRieKlIix9MQrF5esMu3oRTJXyOETTkv0jWiU5nI8fe&#43;7eSasMEdEv3eRhtOXFoyp9JNYErHgQDR79Zd8VfDCWVflBhlXHAt2v9W7PyO2ClG0QiyegTbVTPJiiiG/JrrLAcSPexSKwUzaqdSQjYNUibwcNWZHy9gSr6hA24R4/QGfNbERaWQZjtJHZmu&#43;Hx5r5pVgQ7smZKBFe0nfkBL8rAQ60l/4cOPJzGHXb/zLkWLzQGf&#43;KgFm7yC97JIUGUull49hEEJgYVWpOpQzpdPT/cdJVpM0dv0fJpzOzpbomzFqVngtvTGT5COQRLOljCVEBCDSYz8MYIFcqSTs4OuCNHOTdbgys6BJ6t6HWC6zB6b9WDnSgc61T78xgVZQs&#43;u2cmtbQwgvDz986GYiEp8fgPVhoNg6u8W7b/SO8dtdsqVEYFo0gHmOPeP9TUGmjtbuC0BbuXkfRCvexQi7IV/vP0VhMU8fP0O3u85JT/xdCyuWclxWa0ZecNic3l9Ygc6WNOkBf6zv9XqoUwIlr8/asMH4dqa47LDooITYGx&#43;WsJUWudGuqCOW7zyLkRSLcbJul1hRL6m00VdRAPqIyvKMazq9FCCYBWmGFFhRpjwXK4x4wZuSuY68y1fRc6eTBztw0Kr8TDpAYislYwstxZBoYMCQ40egqLMbBemOEBexU8CYkG0r2/i8pfPvQUiULXbQawsz3lKxSCQP6glVVVG0BDR5kYHOYZ7VaMHHd6B&#43;E1ZCEYdI4O9gaiO987XKUASWnSWlqTDSokjxtJ6LAMAE8N0IVLHEN72l1uOXxcPviGClwqG&#43;hiHdOL9zmkShk9AePv1ikXuy7b3XS9/wX1lsCnyCiQCp5QkC5qFO8WSwaJYs2F1jlBeGjmlA4Pht4bap2f5ghonAXK5bUMX2vzJgGB6yr9vyEGGeQ0TYOIWey&#43;jEodxnNKiWQ0EJTK7BP0cHeTt/rFGDxCbLJMQkNm43K7WEnow/UId/oFfo8X3dC1MiA1Qo5PQDkOh3owK9JJYqVzKmtLThuy6RgfGp2v8QdfKHdryomsrh8VzQf4xxAKizh0g13B1DZaML7KHmV5kNV6ASx6VBJk1mRFqr4GLGhpTR3o4ZBbImN7U3tXysqyeCSVlFwbn3Rhadv6tdeiYyVOlXl2BEIiCjSzP52frwPjD9yq3HuRpmlsD7tEjba4GYJZlZDn1y0lYRxZbZiaMH5er29YXHP9CHehc46ggXixBWm5UTJp82r9DT/kpnYHbiz2T5jrYB0fz4E/DggyrNyOnzpVbdGAw1NS3tQm7&#43;yU5UYRms5DyC2UPgaCxBmW9FUG2lEPBoNYvC5chDIS9N8aLEWh/2B659Cbf&#43;lsawIOnK3DxxYRvn6pnmxqrQC/YXLBoWxuVlbpjdWx6qIeDwlapoNgyy1YgW1A6t7xCaVIlp2VdtXbp3GnYo9g9oYOXJ/Z&#43;zKxYbDlZ8DAiH&#43;1B8XAvbmspmtWFhIaKEVjSU7se2PZDy67BidJm&#43;&#43;PdrFT5sQqza&#43;izgxha2m57/W0AKHz7kz1sP89xrbb01MwTWvSw63zKRoZTRVBWIJD5w7z16enelhoRsPev2YpR7BbO8ofw6pO7M/xh9/4125FK&#43;1Qd/UCBF51a9pk3Ifii7TDF9kIsXFqtjtCqB&#43;CiN/6VEAJ6ntmyzkBQ79PNOgj0H4mAX7pmZl5rHoBUokr/QXC4dAV90dVFpwEkWrkWejg/svP59OUYdufp4GTnf3xYC6AEiQ/IOd55jw5U40MtFwk&#43;no756Nfp7NcJvJ3N4BNP8HWEXybTCdwshg9iMtFCxNM0HSn4Bk6YTAV&#43;O4HD4&#43;k0hre/joteRrOi09low/L0SuKj01Ke6ZH5Sl&#43;rH0R89Dzi0&#43;cwDGd8DC/P4ZjH8CmEwx34Ej7ycTiJ4jTFR6GCaPqcpvBdP5xGq1m4UnhODOc8w8Fx&#43;Dzhk&#43;cwDeFQ3umIPo40BJwYeq53/h9x6CCG9ngAEMIRn4CgooOixqPnGUCYxuMwBcGmYQiD38Ffs5QmD&#43;NwKhBOEk7xGEAAUUd4zvMUpZ9QZ/h/Go6ViHGI1DicMdo60JeEoHe&#43;Ae71ADG5zg&#43;UgTAZjfoIAcQKkxjFQynidJbOUAuz0STVECaklhFAmI1GKcBMzDmAeRYShMl4Bl9Mw9FolJCWQWVMe4LnytJfmjlPD10962/OKggCWtAEIYChhB2AoKIRyNoPx5MwQfHg&#43;5lCCFMwEczUEzqWdvg/wjEeA5jhKJ0RBDw5IUOCTkdhmobpGLXwBz0G5PuDi4iAVo2b4oGC4RSFFsYI4Q1lBAgit4cJjCUaD4640UIUjEdRx2hh&#43;jyZ0TkTUMck18IEjkx1p6NwNk1DguDT32&#43;IL/0TGmhLrCE3fYPbJajoSUi6RUMC20Ff4AkYVDDDgZzmBqYhjGBgeZoGsfYFNUjNOaPp82yc&#43;wKABggka2FIQSz9XrZY&#43;BfnB4LPOw3xAAWapWEfDAmID8WAgYQ7AiPBK34Gt56F4NqTlWYkoNA0nM4ABki1AkbC13icpmL8PBo9T8fESDDsRHPUKUAQgJehJ3BcP40uDyqiZdHzG1JOwCd/0aQK7JciA4FbpkDzoxTpPR334WA0m1HQpi&#43;n6MVw4hQ4M&#43;2D66cAYzxOR3E6giPYS2ffKfj&#43;DLUAk/NFr/&#43;hHK15Dyl8MR6jb8adGEw0hl8dWuGIyWCTOBKiE4sohqNJYqr5Y9ygL3BHQAxQ4jchMrwAIlu0wl6SJMbgCy/YTSdZYU8MPIEDFw2yz8/HROX10mXshqsZPo&#43;YxZ8isdCKolor/ArMx0JcpV8LXQZv&#43;pKAHlwun1OcmV&#43;dd0pvWd/n/Mv27V8n2V4s&#43;J&#43;8MZ//6SFEf34I/P8Q/g&#43;hTL6lT0KpP60W1Pkx7ueB8NfuK4j87YF1v2FA63aphs7mZwP5cgh39y/rO/54v&#43;uu7/m/&#43;N3TDvK93TJ/KONnhKD0Ovp&#43;xeFu3l12&#43;Bxg3C3nqsN27G&#43;c3Xdar/nJtPA7f113&#43;OvykX9bv/J79rpbzddddsFKxa0hzLvdV2xzUxZ7FKiFu/XD&#43;8PT3XzHXxlMyu&#43;7O1YoQszpitfu&#43;88A4Y0/LJdrbLtvBgJoAEa8u2T3y/ly97pb3nXX/&#43;Xzl7lJqzuMrlgvu/XucWstbDvb9/f37bYY0RwCOEWXbRlju6fuw5rz95LA262&#43;pvOT&#43;sIjKGDL1fvdw5L2pnZ3fLt8eL9fd86lpC9nJIgEaPYPT7s5hIUVf70XvLterktx4QQj/Q8dI0vYw6d&#43;sAAAAABJRU5ErkJggg==" alt="غرفة جدة">
+  <div class="sep"></div>
+  <div><b>تقويم الفعاليات</b><small>الدعوات والفعاليات</small></div>
+</div></div>
+
+<section class="hero"><div class="wrap" id="hero">
+  <div class="eyebrow">الفعالية القادمة</div>
+  <div class="none">جاري التحميل…</div>
+</div></section>
+
+<main><div class="wrap">
+  <div class="cal" id="cal">
+    <div class="nav">
+      <button class="ib" id="prev" aria-label="الشهر السابق"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      <div class="m"><b id="gm"></b><span id="hm"></span></div>
+      <button class="tb" id="todayBtn">اليوم</button>
+      <button class="ib" id="next" aria-label="الشهر التالي"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="agenda" id="agenda"></div>
+  </div>
+
+  <section class="sec">
+    <h2>الفعاليات القادمة</h2>
+    <div class="list" id="upcoming"><div class="empty">جاري التحميل…</div></div>
+  </section>
+  <section class="sec" id="pastWrap" hidden>
+    <h2>فعاليات سابقة</h2>
+    <div class="list" id="past"></div>
+  </section>
+</div></main>
+
+<footer><div class="wrap">
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAYFBMVEUAAAD/qyL//vz/phf/tSf/riL/qlX/AAD/1pT/6sj/qgL/ukn/zoD/x23/5Ln/3af/fwD/riL//wD/qyH/8Nj/rSD/rSL/mRn/rCL/syX/sSP/siP/wVz//1UAAAAAAADHCiz5AAAAIHRSTlMA/v///oIDAf//A///////AjQBZf9O3Qq3L5iz/wMAAKrKZfUAAAOfSURBVHja7dvpcqQgEABgGMgGJDjqHLkm7/&#43;aa8yAqByN4vRuVfpXauP6RQSaS0J&#43;41&#43;Prquapuq6B7NVtfzpAdH0z1m9X06ny3vPds3DHpeQ9uNKeR/0&#43;tEO//AYt/3syXtw/tk&#43;Rq7IaWR/6NMD5Ocv8jRhB/qJfD3v7P7xuIP85xnB3V0OujvLEXdXOeruKCfc3eSku5MMcHeRQe4OMtAtLoPdwnKGW1TOcgvKmW4xOdstJK9wi8ir3ALySnezvNrdKG9wN8mb3A3yRne1vNldKRdwV8lF3BVyITdbNi4Lhnvz6EVZsnW19MZRKJcWvmtqoelwUYZsXXUIhtRGZjp4keBZsn2/kVv2cTTwMXKRzpDHehWHD/XPMzNxKCI79TlW1ENJsjQMliftKHHPg2KAi2DvedZ&#43;ma9lci3Na3Zhxd1QunYvSsnLfsPfQM1Nv/8yA/P5Rdp95LgM7a8Ydcp6hOdXCectR2V4P&#43;neMwhTenZrf1jO6J9NMYoofP&#43;NTPTbOXnBNLQErMeaEJaz8hEQVvPf&#43;OSsPMhu6&#43;BBXq4TwrMsrHItivpbnq0&#43;NqTNcUHNaVG5fuSWNBP4LaOgxw6ERmE5aU53&#43;M2Fq/gDz8YVN&#43;lmiXAHot1c4j5yBapZPaW0EMd71PWs/7fw/L8pN5VQb/3qyOs1BDMuJCgtTvtqqkzSkrOS4NdX0lm4DT7uC3QgIGsn5HmaOyfRWrgiFx6ovnViGJDMx8eFyy/2JTeBRsyoDA72bgw0Wqg9Cf1k63UQDjyvPN7G4W0UFozF4EBRO4M9oZUNzql7uwhcK&#43;8QZizqQOVitr3S8DTCwmd5dkPWWjHmrTmtU6t9zck2xBcG6bdnHcjiD/Q1J38HYkq6ZnQFHJ3GxbtMO3wsDE/25XxJwsxNgCkSCE&#43;ThDct3mFZGJ6mRd9AYBd4uQ25rF97wMuhj28SUR6GDTPLw8CBtYETCyFwGDqVMM1JhELnweDJU3SNATDmyll4mk7Lk7DMgDMmyEXhnCWBknDWIkhi0ce&#43;Y5XOYZnLPky9ROM&#43;1e&#43;H3X1QtnlB05ET4U40SiykFlu6zV7ALSqvWr7FW7D&#43;b5fosTYlsLZhsDaesLbasDYXsbZTsTaQsbbMsQ4JYB2LwDoIgnX0BeuwD9bxJqwDXVhH2LAO7WEdU8Q6mIl1FBXr8C3WcWOsA9ZYR8p3d/EO7xO0zxUI3gcaeJ&#43;k4H2EQ9A&#43;Oxp2UHA&#43;tPqN/PgL4tVJQQ7YYQEAAAAASUVORK5CYII=" alt="العرض المتقن">
+  <span>التشغيل بواسطة<b>العرض المتقن</b></span>
+</div></footer>
+
+<div class="modal" id="modal">
+  <div class="sheet" id="sheet">
+    <div class="grab"></div>
+    <div class="sh"><b id="mTitle"></b><button class="x" id="close" aria-label="إغلاق">✕</button></div>
+    <div class="sb" id="mBody"></div>
+  </div>
+</div>
+
+<script>
+  // يجيب البيانات من سكربت جوجل بدون أي تسجيل دخول
+  var API_URL = 'https://script.google.com/macros/s/AKfycbzhgJ22gfsGVI5XSQLLvDNtOnFmIBPBn8smTsZh1PZpFaNqoSlYaMhubIHRC3ZsA87k/exec';
+  var google = { script: { run: (function(){
+    var NAMES = { getEvents: 'events', getFile: 'file', getThumb: 'thumb', scanNew: 'scan' };
+    function call(name, args, ok, fail){
+      var q = '?api=' + (NAMES[name] || name);
+      if (args.length) q += '&id=' + encodeURIComponent(args[0]);
+      fetch(API_URL + q, { credentials: 'omit', cache: 'no-store' })
+        .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(function(d){ if (d && d.error) throw new Error(d.error); if (ok) ok(d); })
+        .catch(function(e){ if (fail) fail(e); });
+    }
+    function runner(ok, fail){
+      var o = {
+        withSuccessHandler: function(f){ return runner(f, fail); },
+        withFailureHandler: function(f){ return runner(ok, f); }
+      };
+      Object.keys(NAMES).forEach(function(n){
+        o[n] = function(){ call(n, Array.prototype.slice.call(arguments), ok, fail); };
+      });
+      return o;
+    }
+    return runner(null, null);
+  })() } };
+</script>
+<script>
+  var PAGE_URL = location.origin + location.pathname;
+  var EVENTS = [], BY_DATE = {}, CACHE = {}, THUMBS = {};
+  var cur = new Date(); cur.setDate(1);
+  var sel = null;
+
+  var L = 'ar-SA-u-nu-latn-ca-';
+  var fGM = new Intl.DateTimeFormat(L + 'gregory', {month:'long', year:'numeric'});
+  var fHM = new Intl.DateTimeFormat(L + 'islamic-umalqura', {month:'long', year:'numeric'});
+  var fHD = new Intl.DateTimeFormat(L + 'islamic-umalqura', {day:'numeric'});
+  var fFull = new Intl.DateTimeFormat(L + 'gregory', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+  var fHFull = new Intl.DateTimeFormat(L + 'islamic-umalqura', {day:'numeric', month:'long', year:'numeric'});
+  var fHMo = new Intl.DateTimeFormat(L + 'islamic-umalqura', {month:'long'});
+  var fHY = new Intl.DateTimeFormat(L + 'islamic-umalqura', {year:'numeric'});
+  var fMon = new Intl.DateTimeFormat(L + 'gregory', {month:'short'});
+  var DOW = ['أحد','إثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'];
+  var IMG_ICON = '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>';
+  var WA_ICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .6l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>';
+
+  function key(d){ return d.getFullYear() + '-' + ('0'+(d.getMonth()+1)).slice(-2) + '-' + ('0'+d.getDate()).slice(-2); }
+  function parse(k){ var p = k.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function dateText(k){ var d = parse(k); return fFull.format(d) + ' · ' + fHFull.format(d); }
+  function daysTo(k){ var t = new Date(); t.setHours(0,0,0,0); return Math.round((parse(k) - t) / 864e5); }
+  var fDM = new Intl.DateTimeFormat(L + 'gregory', {day:'numeric', month:'long'});
+  function lastDay(e){ return e.end || e.date; }
+  
+  function evText(e){
+    if (!e.end) return dateText(e.date);
+    return 'من ' + fFull.format(parse(e.date)) + ' إلى ' + fFull.format(parse(e.end));
+  }
+  function when(k){ var n = daysTo(k); return n === 0 ? 'اليوم' : n === 1 ? 'غداً' : n === 2 ? 'بعد يومين' : n <= 10 ? 'بعد ' + n + ' أيام' : 'بعد ' + n + ' يوماً'; }
+  function find(id){ for (var i = 0; i < EVENTS.length; i++) if (EVENTS[i].id === id) return EVENTS[i]; }
+
+  function load(){
+    google.script.run
+      .withSuccessHandler(function(r){
+        EVENTS = r || [];
+        BY_DATE = {};
+        EVENTS.forEach(function(e){
+          if (e.thumb) THUMBS[e.id] = e.thumb; else if (THUMBS[e.id]) e.thumb = THUMBS[e.id];
+          
+          var d = parse(e.date), last = parse(lastDay(e));
+          for (var i = 0; i < 14 && d <= last; i++){
+            var k = key(d);
+            (BY_DATE[k] = BY_DATE[k] || []).push(e);
+            d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
+          }
+        });
+        if (!sel) sel = key(new Date());
+        renderHero(); render(); renderLists(); loadThumbs(); scanLoop();
+      })
+      .withFailureHandler(function(){
+        document.getElementById('upcoming').innerHTML = '<div class="empty">تعذر تحميل الفعاليات، حدّث الصفحة.</div>';
+      })
+      .getEvents();
+  }
+
+  
+  var scanning = false;
+  function scanLoop(){
+    if (scanning) return;
+    scanning = true;
+    google.script.run
+      .withSuccessHandler(function(n){ scanning = false; if (n > 0) load(); })
+      .withFailureHandler(function(){ scanning = false; })
+      .scanNew();
+  }
+
+  
+  var thumbQueue = [], thumbActive = 0, redrawT = null;
+  function loadThumbs(){
+    var todayK = key(new Date());
+    var want = EVENTS.filter(function(e){ return lastDay(e) >= todayK; })
+      .concat(EVENTS.filter(function(e){ return lastDay(e) < todayK; }).reverse().slice(0, 6))
+      .concat(BY_DATE[sel] || []);
+    want.forEach(function(e){
+      if (!e.isImage || e.thumb || THUMBS[e.id] || e.loadingThumb) return;
+      e.loadingThumb = true;
+      thumbQueue.push(e.id);
+    });
+    pumpThumbs();
+  }
+  function pumpThumbs(){
+    while (thumbActive < 3 && thumbQueue.length){
+      var id = thumbQueue.shift();
+      thumbActive++;
+      (function(id){
+        google.script.run
+          .withSuccessHandler(function(t){
+            thumbActive--;
+            if (t){
+              THUMBS[id] = t;
+              var e = find(id); if (e) e.thumb = t;
+              clearTimeout(redrawT);
+              redrawT = setTimeout(function(){ renderHero(); renderLists(); renderAgenda(); }, 150);
+            }
+            pumpThumbs();
+          })
+          .withFailureHandler(function(){ thumbActive--; pumpThumbs(); })
+          .getThumb(id);
+      })(id);
+    }
+  }
+
+  function renderHero(){
+    var todayK = key(new Date());
+    var next = EVENTS.filter(function(e){ return lastDay(e) >= todayK; })[0];
+    var h = '<div class="eyebrow">الفعالية القادمة</div>';
+    if (!next) h += '<div class="none">لا توجد فعاليات قادمة حالياً</div>';
+    else h += '<div class="feat" data-id="' + next.id + '"><div class="ph"' + (next.thumb ? ' style="background-image:url(\'' + next.thumb + '\')"' : '') + '></div>' +
+      '<div><h2>' + esc(next.title) + '</h2><p>' + (next.end ? 'من ' + fFull.format(parse(next.date)) + '<br>إلى ' + fFull.format(parse(next.end)) : fFull.format(parse(next.date)) + '<br>' + fHFull.format(parse(next.date))) + '</p><span class="pill">' + (next.date < todayK ? 'جارية حتى ' + fDM.format(parse(next.end)) : when(next.date)) + '</span></div></div>';
+    document.getElementById('hero').innerHTML = h;
+    bindCards(document.getElementById('hero'), '.feat');
+  }
+
+  function render(){
+    var y = cur.getFullYear(), m = cur.getMonth();
+    var first = new Date(y, m, 1), last = new Date(y, m+1, 0);
+    document.getElementById('gm').textContent = fGM.format(first);
+    var m1 = fHMo.format(first), m2 = fHMo.format(last);
+    document.getElementById('hm').textContent = (m1 === m2 ? m1 : m1 + ' / ' + m2) + ' ' + fHY.format(last);
+
+    var html = DOW.map(function(d){ return '<div class="dow">' + d + '</div>'; }).join('');
+    var start = new Date(y, m, 1 - first.getDay());
+    var cells = Math.ceil((first.getDay() + last.getDate()) / 7) * 7;
+    var todayK = key(new Date());
+    for (var i = 0; i < cells; i++){
+      var d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
+      var k = key(d), evs = BY_DATE[k] || [];
+      var cls = 'day' + (d.getMonth() !== m ? ' out' : '') + (k === todayK ? ' today' : '') + (k === sel ? ' sel' : '');
+      var dots = evs.length ? '<div class="dots">' + evs.slice(0,3).map(function(){ return '<i></i>'; }).join('') + '</div>' : '';
+      var chips = '<div class="chips">' + evs.slice(0,2).map(function(e){ return '<div>' + esc(e.title) + '</div>'; }).join('') +
+        (evs.length > 2 ? '<div class="more">+' + (evs.length - 2) + '</div>' : '') + '</div>';
+      html += '<div class="' + cls + '" data-k="' + k + '"><div class="top"><span class="n">' + d.getDate() + '</span><span class="h">' + fHD.format(d) + '</span></div>' + dots + chips + '</div>';
+    }
+    var g = document.getElementById('grid');
+    g.innerHTML = html;
+    g.querySelectorAll('.day').forEach(function(el){
+      el.onclick = function(){
+        var k = el.getAttribute('data-k');
+        sel = k;
+        var d = parse(k);
+        if (d.getMonth() !== cur.getMonth()){ cur = new Date(d.getFullYear(), d.getMonth(), 1); }
+        render();
+        var evs = BY_DATE[k] || [];
+        if (evs.length) openEvents(evs, evs.length > 1 ? fFull.format(parse(k)) : 'تفاصيل الدعوة');
+      };
+    });
+    renderAgenda();
+    if (EVENTS.length) loadThumbs();
+  }
+
+  function renderAgenda(){
+    var a = document.getElementById('agenda');
+    var evs = BY_DATE[sel] || [];
+    a.innerHTML = '<h3>' + dateText(sel) + '</h3>' +
+      (evs.length ? '<div class="list">' + evs.map(card).join('') + '</div>' : '<div class="empty">لا توجد فعاليات في هذا اليوم</div>');
+    bindCards(a, '.card');
+  }
+
+  function card(e){
+    var d = parse(e.date);
+    return '<div class="card" data-id="' + e.id + '">' +
+      '<div class="ph"' + (e.thumb ? ' style="background-image:url(\'' + e.thumb + '\')"' : '') + '>' + (e.thumb ? '' : IMG_ICON) + '</div>' +
+      '<div class="tx"><b>' + esc(e.title) + '</b>' + (e.end
+        ? '<small>من ' + fFull.format(d) + '</small><small>إلى ' + fFull.format(parse(e.end)) + '</small>'
+        : '<small>' + fFull.format(d) + '</small><small>' + fHFull.format(d) + '</small>') +
+      (e.dated ? '' : '<div class="note">حسب تاريخ الرفع</div>') + '</div>' +
+      '<div class="badge"><b>' + d.getDate() + '</b><br><span>' + fMon.format(d) + '</span></div></div>';
+  }
+
+  function bindCards(root, sel){
+    root.querySelectorAll(sel).forEach(function(el){
+      el.onclick = function(){ var e = find(el.getAttribute('data-id')); if (e) openEvents([e], 'تفاصيل الدعوة'); };
+    });
+  }
+
+  function renderLists(){
+    var todayK = key(new Date());
+    var up = EVENTS.filter(function(e){ return lastDay(e) >= todayK; });
+    var past = EVENTS.filter(function(e){ return lastDay(e) < todayK; }).reverse().slice(0, 6);
+    var u = document.getElementById('upcoming');
+    u.innerHTML = up.length ? up.map(card).join('') : '<div class="empty">لا توجد فعاليات قادمة حالياً.</div>';
+    document.getElementById('pastWrap').hidden = !past.length;
+    var p = document.getElementById('past');
+    p.innerHTML = past.map(card).join('');
+    bindCards(u, '.card'); bindCards(p, '.card');
+  }
+
+  
+  
+  var observer = null;
+  function openEvents(list, title){
+    var multi = list.length > 1;
+    document.getElementById('sheet').classList.toggle('wide', multi);
+    document.getElementById('mTitle').textContent = title + (multi ? ' · ' + list.length + ' دعوات' : '');
+    document.getElementById('mBody').innerHTML = '<div class="' + (multi ? 'dgrid' : '') + '">' + list.map(function(e){
+      var msg = 'دعوة: ' + e.title + '\n' + evText(e) + (PAGE_URL ? '\n' + PAGE_URL : '');
+      return '<div class="item" data-id="' + e.id + '"><h3>' + esc(e.title) + '</h3><div class="d">' + evText(e) + '</div>' +
+        '<div class="pic" id="c_' + e.id + '">' + (e.thumb ? '<img class="ph-img" src="' + e.thumb + '" alt="">' : '<div class="loading">جاري تحميل الدعوة…</div>') + '</div>' +
+        '<div class="acts"><a class="btn wa" target="_blank" href="https://wa.me/?text=' + encodeURIComponent(msg) + '">' + WA_ICON + 'مشاركة واتساب</a></div></div>';
+    }).join('') + '</div>';
+    document.getElementById('modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    var body = document.getElementById('mBody');
+    body.scrollTop = 0;
+    if (observer) observer.disconnect();
+    if (multi) {
+      body.querySelectorAll('.pic').forEach(function(p){
+        p.onclick = function(){ var e = find(p.id.slice(2)); if (e) openEvents([e], 'تفاصيل الدعوة'); };
+      });
+    }
+    if (multi && 'IntersectionObserver' in window) {
+      observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (!en.isIntersecting) return;
+          observer.unobserve(en.target);
+          var e = find(en.target.getAttribute('data-id'));
+          if (e) fill(e);
+        });
+      }, { root: body, rootMargin: '300px' });
+      body.querySelectorAll('.item').forEach(function(it){ observer.observe(it); });
+    } else {
+      list.forEach(fill);
+    }
+  }
+
+  function fill(e){
+    var show = function(r){
+      CACHE[e.id] = r;
+      var box = document.getElementById('c_' + e.id);
+      if (!box) return;
+      if (r.type === 'none'){
+        box.innerHTML = '<div class="empty">لا تتوفر معاينة لهذا الملف.</div>';
+      } else if (r.type === 'html'){
+        box.innerHTML = '';
+        var f = document.createElement('iframe');
+        f.setAttribute('sandbox', '');
+        f.srcdoc = r.content;
+        box.appendChild(f);
+      } else {
+        box.innerHTML = '<img src="' + r.content + '" alt="' + esc(e.title) + '">';
+      }
+    };
+    if (CACHE[e.id]) return show(CACHE[e.id]);
+    google.script.run.withSuccessHandler(show).withFailureHandler(function(){
+      var box = document.getElementById('c_' + e.id);
+      if (box) box.innerHTML = '<div class="empty">تعذر تحميل الدعوة، أعد المحاولة.</div>';
+    }).getFile(e.id);
+  }
+
+  function closeModal(){ document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; }
+  function shift(n){ cur = new Date(cur.getFullYear(), cur.getMonth() + n, 1); render(); }
+  document.getElementById('close').onclick = closeModal;
+  document.getElementById('modal').onclick = function(ev){ if (ev.target.id === 'modal') closeModal(); };
+  document.addEventListener('keydown', function(ev){ if (ev.key === 'Escape') closeModal(); });
+  document.getElementById('prev').onclick = function(){ shift(-1); };
+  document.getElementById('next').onclick = function(){ shift(1); };
+  document.getElementById('todayBtn').onclick = function(){ cur = new Date(); cur.setDate(1); sel = key(new Date()); render(); };
+
+  
+  (function(){
+    var g = document.getElementById('grid'), x0 = null, y0 = null;
+    g.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, {passive:true});
+    g.addEventListener('touchend', function(e){
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) shift(dx > 0 ? 1 : -1);
+      x0 = null;
+    });
+  })();
+
+  
+  (function(){
+    var sh = document.getElementById('sheet'), y0 = null;
+    sh.querySelector('.sh').addEventListener('touchstart', function(e){ y0 = e.touches[0].clientY; }, {passive:true});
+    sh.querySelector('.sh').addEventListener('touchend', function(e){ if (y0 !== null && e.changedTouches[0].clientY - y0 > 60) closeModal(); y0 = null; });
+  })();
+
+  load();
+  setInterval(load, 5 * 60 * 1000);
+</script>
+</body>
+</html>
