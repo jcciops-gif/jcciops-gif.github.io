@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
 <style>
-   
+  /* ألوان هوية غرفة جدة */
   :root{
     --blue:#1c6792; --blue-dark:#114a6b; --mid:#0e7da4; --teal:#2ec0c9; --teal-soft:#e6f7f8;
     --orange:#ffab22;
@@ -19,7 +19,7 @@
   button{font-family:inherit}
   .wrap{max-width:980px;margin:0 auto;width:100%;padding:0 16px}
 
-   
+  /* الشريط العلوي */
   .topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;padding-top:env(safe-area-inset-top)}
   .topbar .wrap{display:flex;align-items:center;gap:12px;height:66px}
   .topbar img{height:46px;display:block}
@@ -27,7 +27,7 @@
   .topbar b{font-size:16px;color:var(--blue);font-weight:800;line-height:1.2}
   .topbar small{display:block;font-size:12px;color:var(--muted);font-weight:500}
 
-   
+  /* الفعالية القادمة */
   .hero{background:linear-gradient(140deg,var(--blue-dark),var(--blue) 55%,var(--mid));color:#fff;position:relative;overflow:hidden;padding:22px 0 70px}
   .hero::before,.hero::after{content:"";position:absolute;background:var(--teal);transform:rotate(45deg);border-radius:14px;opacity:.9}
   .hero::before{width:90px;height:90px;left:-26px;bottom:26px;opacity:.25}
@@ -40,10 +40,18 @@
   .feat p{font-size:13.5px;opacity:.85;margin-top:4px}
   .pill{display:inline-block;margin-top:8px;background:var(--teal);color:#06343b;font-weight:700;font-size:12.5px;padding:4px 10px;border-radius:999px}
   .hero .none{font-size:16px;opacity:.9;position:relative;z-index:1}
+  .feat{min-height:92px}
+  .feat h2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .feat.in{animation:heroIn .55s ease}
+  @keyframes heroIn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+  .hdots{display:flex;gap:6px;margin-top:14px;position:relative;z-index:1}
+  .hdots i{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.35);cursor:pointer;transition:width .3s,background .3s}
+  .hdots i.on{width:22px;background:var(--teal)}
+  .eyebrow .cnt{opacity:.75;font-weight:400}
 
   main{flex:1;margin-top:-50px;position:relative;z-index:2;padding-bottom:24px}
 
-   
+  /* التقويم */
   .cal{background:var(--card);border-radius:var(--r);box-shadow:0 10px 30px rgba(17,74,107,.10);overflow:hidden}
   .nav{display:flex;align-items:center;gap:8px;padding:12px}
   .nav .m{flex:1;text-align:center}
@@ -67,7 +75,7 @@
   .day.sel .dots i{background:var(--orange)}
   .chips{display:none}
 
-   
+  /* أجندة اليوم المختار */
   .agenda{border-top:1px solid var(--line);padding:14px 14px 16px}
   .agenda h3{font-size:14px;color:var(--muted);font-weight:500;margin-bottom:10px}
   .agenda .empty{font-size:14px;color:var(--muted)}
@@ -94,7 +102,7 @@
   footer span{font-size:12.5px;color:var(--muted);line-height:1.3}
   footer b{display:block;color:var(--text);font-size:14px}
 
-   
+  /* نافذة الدعوة: من تحت في الجوال */
   .modal{position:fixed;inset:0;background:rgba(9,35,50,.6);display:flex;align-items:flex-end;justify-content:center;z-index:20;opacity:0;pointer-events:none;transition:opacity .2s}
   .modal.open{opacity:1;pointer-events:auto}
   .sheet{background:#fff;width:100%;max-width:640px;max-height:92vh;border-radius:22px 22px 0 0;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .25s ease;padding-bottom:env(safe-area-inset-bottom)}
@@ -125,7 +133,7 @@
   .dgrid .item h3{font-size:15.5px}
   .dgrid .pic{cursor:zoom-in}
 
-   
+  /* شاشات أكبر */
   @media(min-width:760px){
     .topbar img{height:52px}
     .hero{padding:30px 0 80px}
@@ -200,7 +208,7 @@
 </div>
 
 <script>
-  // يجيب البيانات من سكربت جوجل بدون أي تسجيل دخول
+  // يجيب البيانات من سكربت جوجل بدون أي تسجيل دخول، بنفس طريقة google.script.run
   var API_URL = 'https://script.google.com/macros/s/AKfycbzhgJ22gfsGVI5XSQLLvDNtOnFmIBPBn8smTsZh1PZpFaNqoSlYaMhubIHRC3ZsA87k/exec';
   var google = { script: { run: (function(){
     var NAMES = { getEvents: 'events', getFile: 'file', getThumb: 'thumb', scanNew: 'scan' };
@@ -251,7 +259,7 @@
   function daysTo(k){ var t = new Date(); t.setHours(0,0,0,0); return Math.round((parse(k) - t) / 864e5); }
   var fDM = new Intl.DateTimeFormat(L + 'gregory', {day:'numeric', month:'long'});
   function lastDay(e){ return e.end || e.date; }
-  
+  // نص التاريخ للفعالية: يوم واحد أو من يوم إلى يوم
   function evText(e){
     if (!e.end) return dateText(e.date);
     return 'من ' + fFull.format(parse(e.date)) + ' إلى ' + fFull.format(parse(e.end));
@@ -266,7 +274,7 @@
         BY_DATE = {};
         EVENTS.forEach(function(e){
           if (e.thumb) THUMBS[e.id] = e.thumb; else if (THUMBS[e.id]) e.thumb = THUMBS[e.id];
-          
+          // الفعالية متعددة الأيام تظهر في كل يوم من أيامها (حتى 14 يوم)
           var d = parse(e.date), last = parse(lastDay(e));
           for (var i = 0; i < 14 && d <= last; i++){
             var k = key(d);
@@ -275,7 +283,7 @@
           }
         });
         if (!sel) sel = key(new Date());
-        renderHero(); render(); renderLists(); loadThumbs(); scanLoop();
+        renderHero(); render(); renderLists(); loadThumbs(); prefetch(); scanLoop();
       })
       .withFailureHandler(function(){
         document.getElementById('upcoming').innerHTML = '<div class="empty">تعذر تحميل الفعاليات، حدّث الصفحة.</div>';
@@ -283,7 +291,7 @@
       .getEvents();
   }
 
-  
+  // يقرأ تواريخ الدعوات الجديدة في الخلفية، ويحدّث الصفحة لو تغيّر شي
   var scanning = false;
   function scanLoop(){
     if (scanning) return;
@@ -294,7 +302,7 @@
       .scanNew();
   }
 
-  
+  // الصور المصغرة: فقط اللي تظهر على الشاشة، ثلاث طلبات بنفس الوقت
   var thumbQueue = [], thumbActive = 0, redrawT = null;
   function loadThumbs(){
     var todayK = key(new Date());
@@ -330,15 +338,78 @@
     }
   }
 
-  function renderHero(){
+  // أعلى الصفحة: أقرب الفعاليات الجارية والقادمة (حتى 8)، تتبدل كل 5 ثواني
+  var heroIdx = 0, heroIds = '', heroTimer = null, heroAnim = false;
+  function heroList(){
     var todayK = key(new Date());
-    var next = EVENTS.filter(function(e){ return lastDay(e) >= todayK; })[0];
-    var h = '<div class="eyebrow">الفعالية القادمة</div>';
+    var up = EVENTS.filter(function(e){ return lastDay(e) >= todayK; });
+    return up.slice(0, 8);
+  }
+  function renderHero(){
+    var list = heroList(), todayK = key(new Date());
+    var ids = list.map(function(e){ return e.id; }).join(',');
+    if (ids !== heroIds){ heroIds = ids; heroIdx = 0; heroAnim = true; }
+    if (heroIdx >= list.length) heroIdx = 0;
+    var next = list[heroIdx];
+    var many = list.length > 1;
+    var h = '<div class="eyebrow">' + (many ? 'الفعاليات القادمة <span class="cnt">' + (heroIdx + 1) + ' من ' + list.length + '</span>' : 'الفعالية القادمة') + '</div>';
     if (!next) h += '<div class="none">لا توجد فعاليات قادمة حالياً</div>';
-    else h += '<div class="feat" data-id="' + next.id + '"><div class="ph"' + (next.thumb ? ' style="background-image:url(\'' + next.thumb + '\')"' : '') + '></div>' +
+    else h += '<div class="feat' + (heroAnim ? ' in' : '') + '" data-id="' + next.id + '"><div class="ph"' + (next.thumb ? ' style="background-image:url(\'' + next.thumb + '\')"' : '') + '></div>' +
       '<div><h2>' + esc(next.title) + '</h2><p>' + (next.end ? 'من ' + fFull.format(parse(next.date)) + '<br>إلى ' + fFull.format(parse(next.end)) : fFull.format(parse(next.date)) + '<br>' + fHFull.format(parse(next.date))) + '</p><span class="pill">' + (next.date < todayK ? 'جارية حتى ' + fDM.format(parse(next.end)) : when(next.date)) + '</span></div></div>';
-    document.getElementById('hero').innerHTML = h;
-    bindCards(document.getElementById('hero'), '.feat');
+    if (many) h += '<div class="hdots">' + list.map(function(e, i){ return '<i data-i="' + i + '"' + (i === heroIdx ? ' class="on"' : '') + '></i>'; }).join('') + '</div>';
+    heroAnim = false;
+    var box = document.getElementById('hero');
+    box.innerHTML = h;
+    bindCards(box, '.feat');
+    box.querySelectorAll('.hdots i').forEach(function(d){
+      d.onclick = function(){ heroGo(+d.getAttribute('data-i')); };
+    });
+    clearInterval(heroTimer);
+    if (many) heroTimer = setInterval(function(){
+      if (document.hidden || document.getElementById('modal').classList.contains('open')) return;
+      heroGo(heroIdx + 1);
+    }, 5000);
+  }
+  function heroGo(i){
+    var n = heroList().length;
+    if (n < 2) return;
+    heroIdx = (i + n) % n; heroAnim = true; renderHero();
+  }
+  (function(){
+    var h = document.getElementById('hero'), x0 = null;
+    h.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; }, {passive:true});
+    h.addEventListener('touchend', function(e){
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 50) heroGo(heroIdx + (dx > 0 ? 1 : -1));
+      x0 = null;
+    });
+  })();
+
+  // تحميل الدعوات القادمة مسبقاً في الخلفية، عشان تفتح فوراً عند الضغط
+  var WAIT = {}, preQ = [], preActive = 0;
+  function getFileC(id, ok, fail){
+    if (CACHE[id]) return ok(CACHE[id]);
+    if (WAIT[id]) { WAIT[id].push([ok, fail]); return; }
+    WAIT[id] = [[ok, fail]];
+    google.script.run
+      .withSuccessHandler(function(r){ CACHE[id] = r; var w = WAIT[id]; delete WAIT[id]; w.forEach(function(c){ c[0](r); }); })
+      .withFailureHandler(function(err){ var w = WAIT[id]; delete WAIT[id]; w.forEach(function(c){ if (c[1]) c[1](err); }); })
+      .getFile(id);
+  }
+  function prefetch(){
+    var todayK = key(new Date());
+    var want = heroList().concat(BY_DATE[todayK] || [], EVENTS.filter(function(e){ return lastDay(e) >= todayK; }).slice(0, 12));
+    want.forEach(function(e){ if (!CACHE[e.id] && preQ.indexOf(e.id) < 0) preQ.push(e.id); });
+    pumpPre();
+  }
+  function pumpPre(){
+    while (preActive < 2 && preQ.length){
+      var id = preQ.shift();
+      if (CACHE[id]) continue;
+      preActive++;
+      getFileC(id, function(){ preActive--; pumpPre(); }, function(){ preActive--; pumpPre(); });
+    }
   }
 
   function render(){
@@ -415,8 +486,8 @@
     bindCards(u, '.card'); bindCards(p, '.card');
   }
 
-  
-  
+  // دعوة وحدة: عرض كامل. أكثر من دعوة: تحت بعض في الجوال، وثلاث جنب بعض في الكمبيوتر.
+  // كل دعوة تنحمّل لما توصل لها، وتظهر صورتها المصغرة فوراً لين تجهز النسخة الواضحة.
   var observer = null;
   function openEvents(list, title){
     var multi = list.length > 1;
@@ -455,7 +526,6 @@
 
   function fill(e){
     var show = function(r){
-      CACHE[e.id] = r;
       var box = document.getElementById('c_' + e.id);
       if (!box) return;
       if (r.type === 'none'){
@@ -470,11 +540,10 @@
         box.innerHTML = '<img src="' + r.content + '" alt="' + esc(e.title) + '">';
       }
     };
-    if (CACHE[e.id]) return show(CACHE[e.id]);
-    google.script.run.withSuccessHandler(show).withFailureHandler(function(){
+    getFileC(e.id, show, function(){
       var box = document.getElementById('c_' + e.id);
       if (box) box.innerHTML = '<div class="empty">تعذر تحميل الدعوة، أعد المحاولة.</div>';
-    }).getFile(e.id);
+    });
   }
 
   function closeModal(){ document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; }
@@ -486,7 +555,7 @@
   document.getElementById('next').onclick = function(){ shift(1); };
   document.getElementById('todayBtn').onclick = function(){ cur = new Date(); cur.setDate(1); sel = key(new Date()); render(); };
 
-  
+  // سحب بالإصبع لتغيير الشهر (يمين لليسار = الشهر التالي في العربي)
   (function(){
     var g = document.getElementById('grid'), x0 = null, y0 = null;
     g.addEventListener('touchstart', function(e){ x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, {passive:true});
@@ -498,7 +567,7 @@
     });
   })();
 
-  
+  // سحب النافذة لتحت لإغلاقها في الجوال
   (function(){
     var sh = document.getElementById('sheet'), y0 = null;
     sh.querySelector('.sh').addEventListener('touchstart', function(e){ y0 = e.touches[0].clientY; }, {passive:true});
