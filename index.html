@@ -236,6 +236,19 @@
 <script>
   var PAGE_URL = location.origin + location.pathname;
   var EVENTS = [], BY_DATE = {}, CACHE = {}, THUMBS = {};
+  // فعاليات مركز جدة للمعارض والفعاليات: صورها داخل الموقع نفسه وليست في درايف
+  var STATIC = [
+    { id: 'jcee01', title: 'معرض التعليم والتدريب', date: '2026-10-05', end: '2026-10-07', dated: true, isImage: true, src: 'jcee-01.jpg', thumb: 'jcee-01.jpg' },
+    { id: 'jcee02', title: 'معرض الهدايا', date: '2026-10-17', end: '2026-10-31', dated: true, isImage: true, src: 'jcee-02.jpg', thumb: 'jcee-02.jpg' },
+    { id: 'jcee03', title: 'معرض السيارات الدولي', date: '2026-11-04', end: '2026-11-07', dated: true, isImage: true, src: 'jcee-03.jpg', thumb: 'jcee-03.jpg' },
+    { id: 'jcee04', title: 'معرض صنع بآسيا', date: '2026-11-10', end: '2026-11-12', dated: true, isImage: true, src: 'jcee-04.jpg', thumb: 'jcee-04.jpg' },
+    { id: 'jcee05', title: 'معرض الكرتون والورق', date: '2026-11-16', end: '2026-11-18', dated: true, isImage: true, src: 'jcee-05.jpg', thumb: 'jcee-05.jpg' },
+    { id: 'jcee06', title: 'معرض فوديكس', date: '2026-11-23', end: '2026-11-26', dated: true, isImage: true, src: 'jcee-06.jpg', thumb: 'jcee-06.jpg' },
+    { id: 'jcee07', title: 'المعرض التجاري الدولي', date: '2026-12-01', end: '2026-12-03', dated: true, isImage: true, src: 'jcee-07.jpg', thumb: 'jcee-07.jpg' },
+    { id: 'jcee08', title: 'معرض جدة الدولي للزراعة', date: '2026-12-07', end: '2026-12-10', dated: true, isImage: true, src: 'jcee-08.jpg', thumb: 'jcee-08.jpg' },
+    { id: 'jcee09', title: 'معرض المنتجات المصرية 3', date: '2026-12-13', end: '2026-12-22', dated: true, isImage: true, src: 'jcee-09.jpg', thumb: 'jcee-09.jpg' },
+    { id: 'jcee10', title: 'معرض المنتجات العربية والعالمية', date: '2026-12-25', end: '2027-01-09', dated: true, isImage: true, src: 'jcee-10.jpg', thumb: 'jcee-10.jpg' }
+  ];
   var cur = new Date(); cur.setDate(1);
   var sel = null;
 
@@ -270,7 +283,7 @@
   function load(){
     google.script.run
       .withSuccessHandler(function(r){
-        EVENTS = r || [];
+        EVENTS = (r || []).concat(STATIC).sort(function(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
         BY_DATE = {};
         EVENTS.forEach(function(e){
           if (e.thumb) THUMBS[e.id] = e.thumb; else if (THUMBS[e.id]) e.thumb = THUMBS[e.id];
@@ -389,6 +402,8 @@
   // تحميل الدعوات القادمة مسبقاً في الخلفية، عشان تفتح فوراً عند الضغط
   var WAIT = {}, preQ = [], preActive = 0;
   function getFileC(id, ok, fail){
+    var se = find(id);
+    if (se && se.src) CACHE[id] = { type: 'image', content: se.src };
     if (CACHE[id]) return ok(CACHE[id]);
     if (WAIT[id]) { WAIT[id].push([ok, fail]); return; }
     WAIT[id] = [[ok, fail]];
