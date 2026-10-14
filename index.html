@@ -274,9 +274,9 @@
         BY_DATE = {};
         EVENTS.forEach(function(e){
           if (e.thumb) THUMBS[e.id] = e.thumb; else if (THUMBS[e.id]) e.thumb = THUMBS[e.id];
-          // الفعالية متعددة الأيام تظهر في كل يوم من أيامها (حتى 14 يوم)
+          // الفعالية متعددة الأيام تظهر في كل يوم من أيامها (حتى 45 يوم)
           var d = parse(e.date), last = parse(lastDay(e));
-          for (var i = 0; i < 14 && d <= last; i++){
+          for (var i = 0; i < 45 && d <= last; i++){
             var k = key(d);
             (BY_DATE[k] = BY_DATE[k] || []).push(e);
             d = new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1);
