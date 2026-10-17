@@ -133,6 +133,54 @@
   .dgrid .item h3{font-size:15.5px}
   .dgrid .pic{cursor:zoom-in}
 
+  /* الحالات والملاحظات */
+  .st{display:inline-block;font-size:11.5px;font-weight:800;padding:2px 9px;border-radius:999px;margin-inline-start:6px;vertical-align:2px;white-space:nowrap}
+  .st.c{background:#fde8e8;color:#c62828}
+  .st.p{background:#fff1d9;color:#a35f00}
+  .card.cx b.t{text-decoration:line-through;text-decoration-color:rgba(198,40,40,.55)}
+  .card.cx .ph{filter:grayscale(.85);opacity:.55}
+  .enote{font-size:13px;color:#6d4500;background:#fff6e5;border-radius:10px;padding:8px 11px;margin-top:8px;line-height:1.55;white-space:pre-line}
+  .enote.c{background:#fdecec;color:#9b1c1c}
+  .card .enote{font-size:12px;padding:5px 8px;margin-top:5px}
+  .dots i.cx{background:#e53935}
+  .dayx{background:#fdecec;color:#9b1c1c;border-radius:12px;padding:10px 12px;font-size:13.5px;margin-bottom:10px;line-height:1.7}
+  .dayx.p{background:#fff1d9;color:#7a4700}
+  .dayx b{font-weight:800}
+  .modal .dayx{margin:12px 16px 0}
+  .pic{position:relative}
+  .ribbon{position:absolute;top:14px;right:-4px;background:#c62828;color:#fff;font-weight:800;font-size:14px;padding:6px 16px;border-radius:8px 0 0 8px;box-shadow:0 4px 12px rgba(0,0,0,.25);z-index:1}
+  .ribbon.p{background:#e08a00}
+  .tcard{border-radius:14px;background:linear-gradient(140deg,var(--blue-dark),var(--blue) 60%,var(--mid));color:#fff;padding:26px 20px;min-height:220px;display:flex;flex-direction:column;gap:10px;justify-content:center;position:relative;overflow:hidden}
+  .tcard::after{content:"";position:absolute;width:120px;height:120px;left:-40px;bottom:-40px;background:var(--teal);opacity:.25;transform:rotate(45deg);border-radius:20px}
+  .tcard h4{font-size:21px;font-weight:800;line-height:1.45}
+  .tcard div{font-size:14.5px;opacity:.92;position:relative;z-index:1}
+  .tcard small{font-size:12px;opacity:.7}
+  .cx .tcard{filter:grayscale(.6)}
+
+  /* وضع الإدارة */
+  .adminbar{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom));left:14px;z-index:15;display:flex;gap:8px}
+  .abtn{height:46px;border-radius:14px;border:0;padding:0 16px;font-weight:800;font-size:14px;background:var(--orange);color:#3a2600;box-shadow:0 6px 18px rgba(0,0,0,.18);cursor:pointer}
+  .abtn.ghost{background:#fff;color:var(--blue)}
+  .btn.adm{background:#fff1d9;color:#7a4700}
+  .btn.del{background:#fdecec;color:#9b1c1c}
+  .frm{padding:14px 16px 18px}
+  .frm label{display:block;font-size:13px;color:var(--muted);margin:12px 0 5px;font-weight:500}
+  .frm input,.frm select,.frm textarea{width:100%;height:46px;border:1px solid var(--line);border-radius:12px;padding:0 12px;font-family:inherit;font-size:15px;background:#fff;color:var(--text)}
+  .frm textarea{height:84px;padding:10px 12px;resize:vertical}
+  .frm .row2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+  .frm .chk{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:14px;color:var(--text)}
+  .frm .chk input{width:20px;height:20px}
+  .frm .hint{font-size:12px;color:var(--muted);margin-top:4px}
+  .frm .acts{flex-wrap:wrap}
+  .ed{margin-top:8px;border:1px dashed #c9d6dc;border-radius:12px;padding:8px;background:#f8fafb}
+  .ed canvas{max-width:100%;display:block;margin:0 auto;border-radius:8px;touch-action:none;cursor:crosshair}
+  .tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .tools button{height:38px;border-radius:10px;border:0;background:var(--teal-soft);color:var(--blue);font-weight:700;font-size:13px;padding:0 11px;cursor:pointer;font-family:inherit}
+  .tools button.on{background:var(--blue);color:#fff}
+  .toast{position:fixed;left:50%;bottom:80px;transform:translateX(-50%);background:#16303d;color:#fff;padding:10px 18px;border-radius:12px;font-size:14px;z-index:40;opacity:0;transition:opacity .2s;pointer-events:none}
+  .toast.on{opacity:1}
+  .err{color:#c62828;font-size:13px;margin-top:8px;min-height:18px}
+
   /* شاشات أكبر */
   @media(min-width:760px){
     .topbar img{height:52px}
@@ -146,6 +194,8 @@
     .chips{display:block;margin-top:4px}
     .chips div{font-size:11px;background:var(--blue);color:#fff;border-radius:6px;padding:3px 6px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .chips div.more{background:var(--teal);color:#06343b}
+    .chips div.cx{background:#e57373;text-decoration:line-through}
+    .chips div.pp{background:#f0a030}
     .day.sel{background:var(--teal-soft)}
     .day.sel .n{background:var(--blue)}
     .list{grid-template-columns:1fr 1fr}
@@ -199,6 +249,12 @@
   <span>التشغيل بواسطة<b>العرض المتقن</b></span>
 </div></footer>
 
+<div class="toast" id="toast"></div>
+<div class="adminbar" id="adminbar" hidden>
+  <button class="abtn" id="aAdd">+ فعالية جديدة</button>
+  <button class="abtn ghost" id="aMenu">الإدارة</button>
+</div>
+
 <div class="modal" id="modal">
   <div class="sheet" id="sheet">
     <div class="grab"></div>
@@ -237,18 +293,20 @@
   var PAGE_URL = location.origin + location.pathname;
   var EVENTS = [], BY_DATE = {}, CACHE = {}, THUMBS = {};
   // فعاليات مركز جدة للمعارض والفعاليات: صورها داخل الموقع نفسه وليست في درايف
+  var STATIC_BASE = /github\.io$/.test(location.hostname) ? '' : 'https://jcciops-gif.github.io/';
   var STATIC = [
-    { id: 'jcee01', title: 'معرض التعليم والتدريب', date: '2026-10-05', end: '2026-10-07', dated: true, isImage: true, src: 'jcee-01.jpg', thumb: 'jcee-01.jpg' },
-    { id: 'jcee02', title: 'معرض الهدايا', date: '2026-10-17', end: '2026-10-31', dated: true, isImage: true, src: 'jcee-02.jpg', thumb: 'jcee-02.jpg' },
-    { id: 'jcee03', title: 'معرض السيارات الدولي', date: '2026-11-04', end: '2026-11-07', dated: true, isImage: true, src: 'jcee-03.jpg', thumb: 'jcee-03.jpg' },
-    { id: 'jcee04', title: 'معرض صنع بآسيا', date: '2026-11-10', end: '2026-11-12', dated: true, isImage: true, src: 'jcee-04.jpg', thumb: 'jcee-04.jpg' },
-    { id: 'jcee05', title: 'معرض الكرتون والورق', date: '2026-11-16', end: '2026-11-18', dated: true, isImage: true, src: 'jcee-05.jpg', thumb: 'jcee-05.jpg' },
-    { id: 'jcee06', title: 'معرض فوديكس', date: '2026-11-23', end: '2026-11-26', dated: true, isImage: true, src: 'jcee-06.jpg', thumb: 'jcee-06.jpg' },
-    { id: 'jcee07', title: 'المعرض التجاري الدولي', date: '2026-12-01', end: '2026-12-03', dated: true, isImage: true, src: 'jcee-07.jpg', thumb: 'jcee-07.jpg' },
-    { id: 'jcee08', title: 'معرض أجروفود جدة للزراعة والمنتجات الغذائية AgroFood Jeddah', date: '2026-12-08', end: '2026-12-10', dated: true, isImage: true, src: 'jcee-11.jpg', thumb: 'jcee-11.jpg' },
-    { id: 'jcee09', title: 'معرض المنتجات المصرية 3', date: '2026-12-13', end: '2026-12-22', dated: true, isImage: true, src: 'jcee-09.jpg', thumb: 'jcee-09.jpg' },
-    { id: 'jcee10', title: 'معرض المنتجات العربية والعالمية', date: '2026-12-25', end: '2027-01-09', dated: true, isImage: true, src: 'jcee-10.jpg', thumb: 'jcee-10.jpg' }
-  ];
+    ['jcee01', 'معرض التعليم والتدريب', '2026-10-05', '2026-10-07', 'jcee-01.jpg'],
+    ['jcee02', 'معرض الهدايا', '2026-10-17', '2026-10-31', 'jcee-02.jpg'],
+    ['jcee03', 'معرض السيارات الدولي', '2026-11-04', '2026-11-07', 'jcee-03.jpg'],
+    ['jcee04', 'معرض صنع بآسيا', '2026-11-10', '2026-11-12', 'jcee-04.jpg'],
+    ['jcee05', 'معرض الكرتون والورق', '2026-11-16', '2026-11-18', 'jcee-05.jpg'],
+    ['jcee06', 'معرض فوديكس', '2026-11-23', '2026-11-26', 'jcee-06.jpg'],
+    ['jcee07', 'المعرض التجاري الدولي', '2026-12-01', '2026-12-03', 'jcee-07.jpg'],
+    ['jcee08', 'معرض أجروفود جدة للزراعة والمنتجات الغذائية AgroFood Jeddah', '2026-12-08', '2026-12-10', 'jcee-11.jpg'],
+    ['jcee09', 'معرض المنتجات المصرية 3', '2026-12-13', '2026-12-22', 'jcee-09.jpg'],
+    ['jcee10', 'معرض المنتجات العربية والعالمية', '2026-12-25', '2027-01-09', 'jcee-10.jpg']
+  ].map(function(a){ return { id: a[0], title: a[1], date: a[2], end: a[3], dated: true, isImage: true, isStatic: true, src: STATIC_BASE + a[4], thumb: STATIC_BASE + a[4], place: 'مركز جدة للمعارض والفعاليات' }; });
+  var ADMIN = null;
   var cur = new Date(); cur.setDate(1);
   var sel = null;
 
@@ -283,7 +341,7 @@
   function load(){
     google.script.run
       .withSuccessHandler(function(r){
-        EVENTS = (r || []).concat(STATIC).sort(function(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+        EVENTS = mergeEvents(r || []);
         BY_DATE = {};
         EVENTS.forEach(function(e){
           if (e.thumb) THUMBS[e.id] = e.thumb; else if (THUMBS[e.id]) e.thumb = THUMBS[e.id];
@@ -302,6 +360,47 @@
         document.getElementById('upcoming').innerHTML = '<div class="empty">تعذر تحميل الفعاليات، حدّث الصفحة.</div>';
       })
       .getEvents();
+  }
+
+  // يدمج فعاليات درايف مع الفعاليات الثابتة وتعديلات الإدارة عليها
+  function mergeEvents(r){
+    var ov = {}, list = [];
+    r.forEach(function(e){ if (e._override) ov[e.id] = e; else list.push(e); });
+    STATIC.forEach(function(s){
+      var o = ov[s.id], e = {};
+      Object.keys(s).forEach(function(k){ e[k] = s[k]; });
+      if (o){
+        if (o.hidden) return;
+        ['title','date','status','note','time','place'].forEach(function(k){ if (o[k]) e[k] = o[k]; });
+        if (o.end) e.end = o.end === '-' ? null : o.end;
+        if (o.poster){ e.poster = o.poster; e.src = null; e.thumb = THUMBS[o.poster] || null; }
+      }
+      list.push(e);
+    });
+    list.sort(function(a, b){ return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+    return list;
+  }
+  function fid(e){ return (e && e.poster) || (e && e.id); }
+  function isCx(e){ return e.status === 'cancelled'; }
+  function stBadge(e){ return e.status === 'cancelled' ? '<span class="st c">ملغاة</span>' : e.status === 'postponed' ? '<span class="st p">مؤجلة</span>' : ''; }
+  function noteBox(e){
+    var t = e.note || (e.status === 'cancelled' ? 'تم إلغاء هذه الفعالية' : e.status === 'postponed' ? 'تم تأجيل هذه الفعالية' : '');
+    return t ? '<div class="enote' + (isCx(e) ? ' c' : '') + '">' + esc(t) + '</div>' : '';
+  }
+  // ملخص الملغاة والمؤجلة في يوم معيّن
+  function dayNotice(evs){
+    var c = evs.filter(isCx), p = evs.filter(function(e){ return e.status === 'postponed'; });
+    var h = '';
+    if (c.length) h += '<div class="dayx"><b>ملغاة في هذا اليوم:</b> ' + c.map(function(e){ return esc(e.title); }).join('، ') + '</div>';
+    if (p.length) h += '<div class="dayx p"><b>مؤجلة:</b> ' + p.map(function(e){ return esc(e.title) + (e.note ? ' (' + esc(e.note) + ')' : ''); }).join('، ') + '</div>';
+    return h;
+  }
+  function textCard(e){
+    var w = [];
+    w.push('<div>' + evText(e) + '</div>');
+    if (e.time) w.push('<div>الوقت: ' + esc(e.time) + '</div>');
+    if (e.place) w.push('<div>المكان: ' + esc(e.place) + '</div>');
+    return '<div class="tcard"><small>غرفة جدة</small><h4>' + esc(e.title) + '</h4>' + w.join('') + '</div>';
   }
 
   // يقرأ تواريخ الدعوات الجديدة في الخلفية، ويحدّث الصفحة لو تغيّر شي
@@ -324,6 +423,7 @@
       .concat(BY_DATE[sel] || []);
     want.forEach(function(e){
       if (!e.isImage || e.thumb || THUMBS[e.id] || e.loadingThumb) return;
+      if (e.isStatic && !e.poster) return;
       e.loadingThumb = true;
       thumbQueue.push(e.id);
     });
@@ -346,7 +446,7 @@
             pumpThumbs();
           })
           .withFailureHandler(function(){ thumbActive--; pumpThumbs(); })
-          .getThumb(id);
+          .getThumb(fid(find(id)) || id);
       })(id);
     }
   }
@@ -355,7 +455,7 @@
   var heroIdx = 0, heroIds = '', heroTimer = null, heroAnim = false;
   function heroList(){
     var todayK = key(new Date());
-    var up = EVENTS.filter(function(e){ return lastDay(e) >= todayK; });
+    var up = EVENTS.filter(function(e){ return lastDay(e) >= todayK && !isCx(e); });
     return up.slice(0, 8);
   }
   function renderHero(){
@@ -403,6 +503,7 @@
   var WAIT = {}, preQ = [], preActive = 0;
   function getFileC(id, ok, fail){
     var se = find(id);
+    if (se && se.isText) return ok({ type: 'text' });
     if (se && se.src) CACHE[id] = { type: 'image', content: se.src };
     if (CACHE[id]) return ok(CACHE[id]);
     if (WAIT[id]) { WAIT[id].push([ok, fail]); return; }
@@ -410,7 +511,7 @@
     google.script.run
       .withSuccessHandler(function(r){ CACHE[id] = r; var w = WAIT[id]; delete WAIT[id]; w.forEach(function(c){ c[0](r); }); })
       .withFailureHandler(function(err){ var w = WAIT[id]; delete WAIT[id]; w.forEach(function(c){ if (c[1]) c[1](err); }); })
-      .getFile(id);
+      .getFile(fid(se) || id);
   }
   function prefetch(){
     var todayK = key(new Date());
@@ -442,8 +543,8 @@
       var d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i);
       var k = key(d), evs = BY_DATE[k] || [];
       var cls = 'day' + (d.getMonth() !== m ? ' out' : '') + (k === todayK ? ' today' : '') + (k === sel ? ' sel' : '');
-      var dots = evs.length ? '<div class="dots">' + evs.slice(0,3).map(function(){ return '<i></i>'; }).join('') + '</div>' : '';
-      var chips = '<div class="chips">' + evs.slice(0,2).map(function(e){ return '<div>' + esc(e.title) + '</div>'; }).join('') +
+      var dots = evs.length ? '<div class="dots">' + evs.slice(0,3).map(function(e){ return '<i' + (isCx(e) ? ' class="cx"' : '') + '></i>'; }).join('') + '</div>' : '';
+      var chips = '<div class="chips">' + evs.slice(0,2).map(function(e){ return '<div' + (isCx(e) ? ' class="cx"' : e.status === 'postponed' ? ' class="pp"' : '') + '>' + esc(e.title) + '</div>'; }).join('') +
         (evs.length > 2 ? '<div class="more">+' + (evs.length - 2) + '</div>' : '') + '</div>';
       html += '<div class="' + cls + '" data-k="' + k + '"><div class="top"><span class="n">' + d.getDate() + '</span><span class="h">' + fHD.format(d) + '</span></div>' + dots + chips + '</div>';
     }
@@ -467,19 +568,22 @@
   function renderAgenda(){
     var a = document.getElementById('agenda');
     var evs = BY_DATE[sel] || [];
-    a.innerHTML = '<h3>' + dateText(sel) + '</h3>' +
-      (evs.length ? '<div class="list">' + evs.map(card).join('') + '</div>' : '<div class="empty">لا توجد فعاليات في هذا اليوم</div>');
+    a.innerHTML = '<h3>' + dateText(sel) + '</h3>' + dayNotice(evs) +
+      (evs.length ? '<div class="list">' + evs.map(card).join('') + '</div>' : '<div class="empty">لا توجد فعاليات في هذا اليوم</div>') +
+      (ADMIN ? '<div class="acts"><button class="btn adm" id="addDay">+ إضافة فعالية في هذا اليوم</button></div>' : '');
     bindCards(a, '.card');
+    var ad = document.getElementById('addDay');
+    if (ad) ad.onclick = function(){ openEditor(null, sel); };
   }
 
   function card(e){
     var d = parse(e.date);
-    return '<div class="card" data-id="' + e.id + '">' +
+    return '<div class="card' + (isCx(e) ? ' cx' : '') + '" data-id="' + e.id + '">' +
       '<div class="ph"' + (e.thumb ? ' style="background-image:url(\'' + e.thumb + '\')"' : '') + '>' + (e.thumb ? '' : IMG_ICON) + '</div>' +
-      '<div class="tx"><b>' + esc(e.title) + '</b>' + (e.end
+      '<div class="tx"><b class="t">' + esc(e.title) + stBadge(e) + '</b>' + (e.end
         ? '<small>من ' + fFull.format(d) + '</small><small>إلى ' + fFull.format(parse(e.end)) + '</small>'
         : '<small>' + fFull.format(d) + '</small><small>' + fHFull.format(d) + '</small>') +
-      (e.dated ? '' : '<div class="note">حسب تاريخ الرفع</div>') + '</div>' +
+      (e.dated ? '' : '<div class="note">حسب تاريخ الرفع</div>') + (e.note || e.status ? noteBox(e) : '') + '</div>' +
       '<div class="badge"><b>' + d.getDate() + '</b><br><span>' + fMon.format(d) + '</span></div></div>';
   }
 
@@ -508,12 +612,19 @@
     var multi = list.length > 1;
     document.getElementById('sheet').classList.toggle('wide', multi);
     document.getElementById('mTitle').textContent = title + (multi ? ' · ' + list.length + ' دعوات' : '');
-    document.getElementById('mBody').innerHTML = '<div class="' + (multi ? 'dgrid' : '') + '">' + list.map(function(e){
-      var msg = 'دعوة: ' + e.title + '\n' + evText(e) + (PAGE_URL ? '\n' + PAGE_URL : '');
-      return '<div class="item" data-id="' + e.id + '"><h3>' + esc(e.title) + '</h3><div class="d">' + evText(e) + '</div>' +
-        '<div class="pic" id="c_' + e.id + '">' + (e.thumb ? '<img class="ph-img" src="' + e.thumb + '" alt="">' : '<div class="loading">جاري تحميل الدعوة…</div>') + '</div>' +
-        '<div class="acts"><a class="btn wa" target="_blank" href="https://wa.me/?text=' + encodeURIComponent(msg) + '">' + WA_ICON + 'مشاركة واتساب</a></div></div>';
+    document.getElementById('mBody').innerHTML = (multi ? dayNotice(list) : '') + '<div class="' + (multi ? 'dgrid' : '') + '">' + list.map(function(e){
+      var msg = (isCx(e) ? 'إلغاء فعالية: ' : e.status === 'postponed' ? 'تأجيل فعالية: ' : 'دعوة: ') + e.title + '\n' + evText(e) + (e.note ? '\n' + e.note : '') + (PAGE_URL ? '\n' + PAGE_URL : '');
+      var rib = isCx(e) ? '<div class="ribbon">ملغاة</div>' : e.status === 'postponed' ? '<div class="ribbon p">مؤجلة</div>' : '';
+      var extra = (e.time ? ' · ' + esc(e.time) : '') + (e.place ? ' · ' + esc(e.place) : '');
+      return '<div class="item' + (isCx(e) ? ' cx' : '') + '" data-id="' + e.id + '"><h3>' + esc(e.title) + stBadge(e) + '</h3><div class="d">' + evText(e) + extra + '</div>' +
+        '<div class="pic" id="c_' + e.id + '">' + rib + (e.isText ? textCard(e) : e.thumb ? '<img class="ph-img" src="' + e.thumb + '" alt="">' : '<div class="loading">جاري تحميل الدعوة…</div>') + '</div>' +
+        noteBox(e) +
+        '<div class="acts"><a class="btn wa" target="_blank" href="https://wa.me/?text=' + encodeURIComponent(msg) + '">' + WA_ICON + 'مشاركة واتساب</a>' +
+        (ADMIN ? '<button class="btn adm" data-edit="' + e.id + '">تعديل</button>' : '') + '</div></div>';
     }).join('') + '</div>';
+    document.querySelectorAll('#mBody [data-edit]').forEach(function(b){
+      b.onclick = function(){ openEditor(find(b.getAttribute('data-edit'))); };
+    });
     document.getElementById('modal').classList.add('open');
     document.body.style.overflow = 'hidden';
     var body = document.getElementById('mBody');
@@ -543,7 +654,10 @@
     var show = function(r){
       var box = document.getElementById('c_' + e.id);
       if (!box) return;
-      if (r.type === 'none'){
+      var rib = isCx(e) ? '<div class="ribbon">ملغاة</div>' : e.status === 'postponed' ? '<div class="ribbon p">مؤجلة</div>' : '';
+      if (r.type === 'text'){
+        box.innerHTML = rib + textCard(e);
+      } else if (r.type === 'none'){
         box.innerHTML = '<div class="empty">لا تتوفر معاينة لهذا الملف.</div>';
       } else if (r.type === 'html'){
         box.innerHTML = '';
@@ -552,7 +666,7 @@
         f.srcdoc = r.content;
         box.appendChild(f);
       } else {
-        box.innerHTML = '<img src="' + r.content + '" alt="' + esc(e.title) + '">';
+        box.innerHTML = rib + '<img src="' + r.content + '" alt="' + esc(e.title) + '">';
       }
     };
     getFileC(e.id, show, function(){
@@ -560,6 +674,210 @@
       if (box) box.innerHTML = '<div class="empty">تعذر تحميل الدعوة، أعد المحاولة.</div>';
     });
   }
+
+  /* ---------- وضع الإدارة ---------- */
+  // يفتح بإضافة #admin لرابط الموقع. كلمة المرور تنحفظ في هذا المتصفح لين تسجّل خروج.
+  function toast(t){ var el = document.getElementById('toast'); el.textContent = t; el.classList.add('on'); clearTimeout(el._t); el._t = setTimeout(function(){ el.classList.remove('on'); }, 2600); }
+  function apiPost(b){
+    b.pw = b.pw || ADMIN;
+    if (typeof API_URL !== 'undefined'){
+      return fetch(API_URL, { method: 'POST', body: JSON.stringify(b), headers: { 'Content-Type': 'text/plain;charset=utf-8' }, credentials: 'omit' })
+        .then(function(r){ return r.json(); })
+        .then(function(d){ if (d && d.error) throw new Error(d.error); return d; });
+    }
+    return new Promise(function(ok, no){
+      google.script.run.withSuccessHandler(ok).withFailureHandler(function(e){ no(new Error(e && e.message || e)); }).adminCall(b);
+    });
+  }
+  function store(k, v){ try { if (v === null) localStorage.removeItem(k); else localStorage.setItem(k, v); } catch (e) {} }
+  function stored(k){ try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function openSheet(title, html){
+    document.getElementById('sheet').classList.remove('wide');
+    document.getElementById('mTitle').textContent = title;
+    document.getElementById('mBody').innerHTML = html;
+    document.getElementById('modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('mBody').scrollTop = 0;
+  }
+  function enterAdmin(pw){
+    ADMIN = pw; store('jcci_admin', pw);
+    document.getElementById('adminbar').hidden = false;
+    if (sel) renderAgenda();
+  }
+  function loginForm(msg){
+    openSheet('دخول الإدارة', '<div class="frm"><label>كلمة المرور</label><input type="password" id="fPw" autocomplete="current-password">' +
+      '<div class="err" id="fErr">' + (msg || '') + '</div><div class="acts"><button class="btn sec2" id="fGo">دخول</button></div></div>');
+    var go = function(){
+      var pw = document.getElementById('fPw').value;
+      document.getElementById('fErr').textContent = 'جاري التحقق…';
+      apiPost({ action: 'login', pw: pw }).then(function(){ enterAdmin(pw); closeModal(); toast('أهلاً، وضع الإدارة مفعّل'); })
+        .catch(function(e){ document.getElementById('fErr').textContent = e.message; });
+    };
+    document.getElementById('fGo').onclick = go;
+    document.getElementById('fPw').onkeydown = function(ev){ if (ev.key === 'Enter') go(); };
+    setTimeout(function(){ document.getElementById('fPw').focus(); }, 250);
+  }
+  function adminMenu(){
+    openSheet('الإدارة', '<div class="frm"><label>تغيير كلمة المرور</label><input type="password" id="fNew" placeholder="كلمة المرور الجديدة (6 أحرف على الأقل)">' +
+      '<div class="err" id="fErr"></div><div class="acts"><button class="btn sec2" id="fChg">حفظ كلمة المرور</button><button class="btn del" id="fOut">تسجيل خروج</button></div>' +
+      '<div class="hint">لإضافة فعالية: زر "فعالية جديدة"، أو افتح يوم في التقويم واضغط "إضافة فعالية في هذا اليوم". لتعديل أو إلغاء فعالية: افتحها واضغط "تعديل".</div></div>');
+    document.getElementById('fChg').onclick = function(){
+      var n = document.getElementById('fNew').value;
+      apiPost({ action: 'password', newPw: n }).then(function(){ enterAdmin(n); closeModal(); toast('تم تغيير كلمة المرور'); })
+        .catch(function(e){ document.getElementById('fErr').textContent = e.message; });
+    };
+    document.getElementById('fOut').onclick = function(){
+      ADMIN = null; store('jcci_admin', null); document.getElementById('adminbar').hidden = true; closeModal(); renderAgenda(); toast('تم تسجيل الخروج');
+    };
+  }
+
+  // نموذج الإضافة والتعديل
+  var ED = null;   // محرر البوستر
+  function openEditor(e, day){
+    var isNew = !e;
+    e = e || { title: '', date: day || key(new Date()), end: null, status: '', note: '', time: '', place: '' };
+    var h = '<div class="frm">' +
+      '<label>اسم الفعالية</label><input id="fT" value="' + esc(e.title || '') + '">' +
+      '<div class="row2"><div><label>من تاريخ</label><input type="date" id="fD" value="' + (e.date || '') + '"></div>' +
+      '<div><label>إلى تاريخ (اختياري)</label><input type="date" id="fE" value="' + (e.end || '') + '"></div></div>' +
+      '<div class="row2"><div><label>الوقت (اختياري)</label><input id="fTm" placeholder="مثال: 10 صباحاً" value="' + esc(e.time || '') + '"></div>' +
+      '<div><label>المكان (اختياري)</label><input id="fPl" value="' + esc(e.place || '') + '"></div></div>' +
+      '<label>الحالة</label><select id="fS"><option value="">قائمة</option><option value="cancelled"' + (e.status === 'cancelled' ? ' selected' : '') + '>ملغاة</option><option value="postponed"' + (e.status === 'postponed' ? ' selected' : '') + '>مؤجلة</option></select>' +
+      '<label>ملاحظة تظهر للموظفين (اختياري)</label><textarea id="fN" placeholder="مثال: تم إلغاء الفعالية حسب إيميل الجهة المنظمة">' + esc(e.note || '') + '</textarea>' +
+      '<label>البوستر</label><input type="file" id="fF" accept="image/*">' +
+      '<div class="hint">' + (isNew ? 'بدون بوستر؟ اتركه فاضي وتظهر الفعالية ببطاقة نصية.' : 'اختر صورة جديدة لاستبدال البوستر، أو عدّل البوستر الحالي.') + '</div>' +
+      (!isNew && e.isImage ? '<div class="acts"><button class="btn sec2" id="fCur">تعديل البوستر الحالي</button></div>' : '') +
+      '<div class="ed" id="fEd" hidden><canvas id="fCv"></canvas><div class="tools">' +
+        '<button data-t="rot">تدوير</button><button data-t="crop">قص</button><button data-t="cx">ختم ملغاة</button><button data-t="pp">ختم مؤجلة</button><button data-t="reset">إرجاع</button><button data-t="drop">بدون صورة جديدة</button>' +
+      '</div><div class="hint">للقص: اضغط "قص" ثم اسحب على الصورة لتحديد الجزء، واضغط "قص" مرة ثانية للتطبيق.</div></div>' +
+      (isNew ? '<label class="chk"><input type="checkbox" id="fW" checked> في الموقع فقط (ما يدخل التقويم ولا فولدر الدعوات)</label>' : '') +
+      '<div class="err" id="fErr"></div>' +
+      '<div class="acts"><button class="btn sec2" id="fSave">' + (isNew ? 'إضافة' : 'حفظ التعديل') + '</button>' +
+      (!isNew ? '<button class="btn del" id="fDel">حذف من الموقع</button>' : '') + '</div>' +
+      (!isNew ? '<div class="acts"><button class="btn adm" id="fReset">إرجاع الفعالية لأصلها</button></div>' : '') +
+      '</div>';
+    openSheet(isNew ? 'فعالية جديدة' : 'تعديل الفعالية', h);
+    ED = null;
+    document.getElementById('fF').onchange = function(ev){
+      var f = ev.target.files[0]; if (!f) return;
+      var rd = new FileReader(); rd.onload = function(){ startEditor(rd.result); }; rd.readAsDataURL(f);
+    };
+    var cb = document.getElementById('fCur');
+    if (cb) cb.onclick = function(){
+      cb.textContent = 'جاري التحميل…';
+      getFileC(e.id, function(r){ if (r.type === 'image') startEditor(r.content); else cb.textContent = 'لا يمكن تعديل هذا النوع'; }, function(){ cb.textContent = 'تعذر التحميل'; });
+    };
+    document.querySelectorAll('#fEd [data-t]').forEach(function(b){ b.onclick = function(){ edTool(b.getAttribute('data-t'), b); }; });
+    var err = function(t){ document.getElementById('fErr').textContent = t; };
+    document.getElementById('fSave').onclick = function(){
+      var data = {
+        title: document.getElementById('fT').value.trim(), date: document.getElementById('fD').value,
+        end: document.getElementById('fE').value || '-', time: document.getElementById('fTm').value.trim(),
+        place: document.getElementById('fPl').value.trim(), status: document.getElementById('fS').value,
+        note: document.getElementById('fN').value.trim()
+      };
+      if (!data.title || !data.date) return err('اكتب اسم الفعالية والتاريخ');
+      if (data.end !== '-' && data.end < data.date) return err('تاريخ النهاية قبل البداية');
+      if (data.end === data.date) data.end = '-';
+      var img = ED && ED.changed ? edExport() : null;
+      var btn = this; btn.disabled = true; btn.textContent = 'جاري الحفظ…'; err('');
+      var req = isNew ? { action: 'add', data: data, image: img, webOnly: document.getElementById('fW').checked }
+                      : { action: 'save', id: e.id, data: data, image: img };
+      apiPost(req).then(function(){
+        if (!isNew){ delete CACHE[e.id]; delete THUMBS[e.id]; }
+        closeModal(); toast(isNew ? 'تمت إضافة الفعالية' : 'تم حفظ التعديل');
+        sel = data.date; var d = parse(data.date); cur = new Date(d.getFullYear(), d.getMonth(), 1);
+        load();
+      }).catch(function(x){ btn.disabled = false; btn.textContent = 'حفظ'; err(x.message); });
+    };
+    var del = document.getElementById('fDel');
+    if (del) del.onclick = function(){
+      if (del.getAttribute('data-sure') !== '1'){ del.setAttribute('data-sure', '1'); del.textContent = 'اضغط مرة ثانية للتأكيد'; return; }
+      apiPost({ action: 'delete', id: e.id }).then(function(){ closeModal(); toast('تم حذفها من الموقع'); load(); }).catch(function(x){ err(x.message); });
+    };
+    var rs = document.getElementById('fReset');
+    if (rs) rs.onclick = function(){
+      apiPost({ action: 'reset', id: e.id }).then(function(){ delete CACHE[e.id]; delete THUMBS[e.id]; closeModal(); toast('رجعت الفعالية لأصلها'); load(); }).catch(function(x){ err(x.message); });
+    };
+  }
+
+  // محرر البوستر: تدوير وقص وختم
+  function startEditor(src){
+    var im = new Image();
+    im.crossOrigin = 'anonymous';
+    im.onload = function(){
+      var c = document.createElement('canvas'), s = Math.min(1, 1600 / Math.max(im.width, im.height));
+      c.width = Math.round(im.width * s); c.height = Math.round(im.height * s);
+      c.getContext('2d').drawImage(im, 0, 0, c.width, c.height);
+      ED = { orig: c, work: cloneC(c), crop: null, cropping: false, changed: true };
+      document.getElementById('fEd').hidden = false;
+      edDraw(); edBind();
+    };
+    im.onerror = function(){ document.getElementById('fErr').textContent = 'تعذر فتح الصورة'; };
+    im.src = src;
+  }
+  function cloneC(c){ var n = document.createElement('canvas'); n.width = c.width; n.height = c.height; n.getContext('2d').drawImage(c, 0, 0); return n; }
+  function edDraw(){
+    var cv = document.getElementById('fCv'); if (!cv || !ED) return;
+    cv.width = ED.work.width; cv.height = ED.work.height;
+    var g = cv.getContext('2d'); g.drawImage(ED.work, 0, 0);
+    if (ED.crop){
+      var r = ED.crop; g.fillStyle = 'rgba(0,0,0,.45)';
+      g.fillRect(0, 0, cv.width, r.y); g.fillRect(0, r.y + r.h, cv.width, cv.height - r.y - r.h);
+      g.fillRect(0, r.y, r.x, r.h); g.fillRect(r.x + r.w, r.y, cv.width - r.x - r.w, r.h);
+      g.strokeStyle = '#2ec0c9'; g.lineWidth = Math.max(2, cv.width / 300); g.strokeRect(r.x, r.y, r.w, r.h);
+    }
+  }
+  function edBind(){
+    var cv = document.getElementById('fCv'), p0 = null;
+    var pt = function(ev){ var b = cv.getBoundingClientRect(); return { x: (ev.clientX - b.left) * cv.width / b.width, y: (ev.clientY - b.top) * cv.height / b.height }; };
+    cv.onpointerdown = function(ev){ if (!ED.cropping) return; p0 = pt(ev); cv.setPointerCapture(ev.pointerId); };
+    cv.onpointermove = function(ev){ if (!p0) return; var p = pt(ev); ED.crop = { x: Math.min(p0.x, p.x), y: Math.min(p0.y, p.y), w: Math.abs(p.x - p0.x), h: Math.abs(p.y - p0.y) }; edDraw(); };
+    cv.onpointerup = function(){ p0 = null; };
+  }
+  function edTool(t, btn){
+    if (!ED) return;
+    var w = ED.work;
+    if (t === 'rot'){
+      var n = document.createElement('canvas'); n.width = w.height; n.height = w.width;
+      var g = n.getContext('2d'); g.translate(n.width, 0); g.rotate(Math.PI / 2); g.drawImage(w, 0, 0);
+      ED.work = n; ED.crop = null;
+    } else if (t === 'crop'){
+      if (!ED.cropping){ ED.cropping = true; btn.classList.add('on'); btn.textContent = 'تطبيق القص'; return; }
+      ED.cropping = false; btn.classList.remove('on'); btn.textContent = 'قص';
+      var r = ED.crop; ED.crop = null;
+      if (r && r.w > 20 && r.h > 20){
+        var c = document.createElement('canvas'); c.width = Math.round(r.w); c.height = Math.round(r.h);
+        c.getContext('2d').drawImage(w, r.x, r.y, r.w, r.h, 0, 0, c.width, c.height);
+        ED.work = c;
+      }
+    } else if (t === 'cx' || t === 'pp'){
+      var g2 = w.getContext('2d'), W = w.width, H = w.height, band = Math.max(W, H) * 0.11;
+      g2.save(); g2.translate(W / 2, H / 2); g2.rotate(-Math.atan2(H, W) * 0.55);
+      g2.fillStyle = t === 'cx' ? 'rgba(198,40,40,.92)' : 'rgba(224,138,0,.92)';
+      g2.fillRect(-W * 1.2, -band / 2, W * 2.4, band);
+      g2.fillStyle = '#fff'; g2.textAlign = 'center'; g2.textBaseline = 'middle';
+      g2.font = '800 ' + Math.round(band * 0.6) + 'px Tajawal, sans-serif';
+      g2.fillText(t === 'cx' ? 'تم الإلغاء' : 'تم التأجيل', 0, band * 0.04);
+      g2.restore();
+    } else if (t === 'reset'){
+      ED.work = cloneC(ED.orig); ED.crop = null;
+    } else if (t === 'drop'){
+      ED = null; document.getElementById('fEd').hidden = true; document.getElementById('fF').value = ''; return;
+    }
+    ED.changed = true; edDraw();
+  }
+  function edExport(){ return ED.work.toDataURL('image/jpeg', 0.88); }
+
+  document.getElementById('aAdd').onclick = function(){ openEditor(null, sel); };
+  document.getElementById('aMenu').onclick = adminMenu;
+  (function(){
+    if (/admin/.test(location.hash + location.search)){
+      var pw = stored('jcci_admin');
+      if (pw) apiPost({ action: 'login', pw: pw }).then(function(){ enterAdmin(pw); }).catch(function(){ loginForm(); });
+      else loginForm();
+    }
+  })();
 
   function closeModal(){ document.getElementById('modal').classList.remove('open'); document.body.style.overflow = ''; }
   function shift(n){ cur = new Date(cur.getFullYear(), cur.getMonth() + n, 1); render(); }
